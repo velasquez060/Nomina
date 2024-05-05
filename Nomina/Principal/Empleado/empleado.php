@@ -52,12 +52,12 @@
     <input type="text" name="txtEstadoCivil" class="form-control" id="inputEstadoCivil">
   </div>
   <div class="col-md-6" >
-    <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4">
+    <label  class="form-label">EPS:</label>
+    <input type="text" name="txtEps" class="form-control" id="inputEps">
   </div>
   <div class="col-md-6">
-    <label for="inputCity" class="form-label">City</label>
-    <input type="text" class="form-control" id="inputCity">
+    <label  class="form-label">Fondo de Pensiones:</label>
+    <input type="text"  name="txtFondoPensiones" class="form-control" id="inputFondoPensiones">
   </div>
   <div class="col-md-6" >
     <label for="inputEmail4" class="form-label">Email</label>
