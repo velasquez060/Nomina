@@ -72,8 +72,8 @@
     <input type="email" class="form-control" id="inputEmail4">
   </div>
   <div class="col-md-6" >
-    <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4">
+    <label  class="form-label">Fecha Ingreso:</label>
+    <input type="date" name="txtFechaIngreso" class="form-control" id="inputFechaIngreso">
   </div>
   
   <div class="col-12">
