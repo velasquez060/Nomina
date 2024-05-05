@@ -3,14 +3,15 @@
 
 .container{
     position: relative;
-    margin-top: 50px;
+    margin-top: 10px;
+    background-color: rgb(217, 223, 223);
 }
 
 .tituloempleado{
     display: flex;
     justify-content: center;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 30px;
     font-family: "Freeman", sans-serif;
     font-weight: 200;
     font-style: normal;
