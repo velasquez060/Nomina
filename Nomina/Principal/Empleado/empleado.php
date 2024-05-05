@@ -48,8 +48,8 @@
     <input type="email" name="txtEmail" class="form-control" id="inputEmail">
   </div>
   <div class="col-md-6" >
-    <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4">
+    <label  class="form-label">Estado Civil:</label>
+    <input type="text" name="txtEstadoCivil" class="form-control" id="inputEstadoCivil">
   </div>
   <div class="col-md-6" >
     <label for="inputEmail4" class="form-label">Email</label>
