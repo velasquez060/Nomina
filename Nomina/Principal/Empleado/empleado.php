@@ -4,147 +4,85 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, user-escalable=no, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../Css/empleado.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
-    
-    <title>Ficha empleado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>Document</title>
 </head>
+
 <body>
-    <header class="showcase">
-        <div class="showcase-top">
-            <img src="img/logo.png" alt="">
-        </div>                   
-    </header> 
-    <nav>
-        <ul>
-            <li><a href="Ficha_empleado.html"><h1>Opciones</h1>
-                <img src="./img/flecha-curva-hacia-abajo.png"><br/></a>
-                <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="html/index.html">Cerrar sesion</a></li>
-                    
-                </ul>
-            </li>
-        </ul>
-    </nav> 
+        <H1 class="tituloempleado">Ficha Empleado</H1>
     
-    <div id="formulario">
-        <form name="ficha de empleado">
-            <table class="formulario">
-                <tr>
-                    <td class="titulo" colspan="3">FICHA DE EMPLEADO</td>
-                </tr>
-        <div class= "row g-3">
-            <div class="col-sm-7">
-                <tr>
-                    <td class="letras">Nombres:</td>
-                    <td colspan="2">
-                        <input type="text" name="textNombres" class="valor" size="46">
-                    </td>
-                </tr>
-            </div>
-        </div>
-                <tr>
-                    <td class="letras">Apellidos:</td>
-                    <td colspan="2">
-                        <input type="text" class="valor"name="textApellidos" size="46">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Fecha de nacimiento:</td>
-                    <td colspan="2">
-                        <input type="date" name="dateFecha" class="valor">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Cedula:</td>
-                    <td colspan="2">
-                        <input type="text" name="textCedula" maxlength="15" placeholder="Sin puntos ni guiones" class="valor">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Celular:</td>
-                    <td colspan="2">
-                        <input type="text" name="textCelular" maxlength="10" placeholder="Sin puntos ni guiones" class="valor">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Telefono:</td>
-                    <td colspan="2">
-                        <input type="text" name="textTelefono"maxlength="10" class="valor" placeholder="Sin puntos ni guiones">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Dirección:</td>
-                    <td colspan="2">
-                        <input type="text" class="valor" name="textDireccion" size="46">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Correo:</td>
-                    <td colspan="2">
-                        <input type="email" class="valor" name="textCorreo" size="46">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Estado civil:</td>
-                    <td colspan="2">
-                        <input type="text" class="valor" name="textEstado">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Genero:</td>
-                    <td colspan="2">
-                        <input type="radio" class="valor" name="opSexo" value="m">Masculino
-                        <input type="radio" class="valor" name="opSexo" value="f">Femenino
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">EPS:</td>
-                    <td colspan="2">
-                        <input type="text" class="valor" name="textEps">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Cargo:</td>
-                    <td colspan="2">
-                        <input type="text" class="valor" name="textCargo">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Fondo de Pensiones:</td>
-                    <td colspan="2">
-                        <input type="user" class="valor" name="textUsuario">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Fecha de Ingreso:</td>
-                    <td colspan="2">
-                        <input type="date" name="dateFecha" class="valor">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="letras">Fecha de Terminación de Contrato:</td>
-                    <td colspan="2">
-                        <input type="date" name="dateFecha" class="valor">
-                    </td>
-                </tr>
-                <tr>
-                    <td class="titulo" colspan="3">
-                        <input type="submit" name="btnAgregar" class="letras" value="Agregar nuevo registro">
-                        <input type="submit" name="btnGuardar" class="letras" value="Adjuntar Archivo">
-                        <input type="submit" name="btnEliminar" class="letras" value="Eliminar registro">
-                    </td>
-                </tr>
-
-            </table>
-        </form>
-    </div>
-    
+    <div class="container d-flex justify-content-center">
+<form class="row g-3 "  >
+  <div class="col-md-6" >
+    <label class="form-label">Nombre:</label>
+    <input type="texto" name="txtNombre" class="form-control" id="inputNombre">
+  </div>
+  <div class="col-md-6" >
+    <label  class="form-label">Apellido:</label>
+    <input type="text" name="txtApellido" class="form-control" id="inputApellido">
+  </div>
+  <div class="col-md-6" >
+    <label class="form-label">Cedula:</label>
+    <input type="text" name="txtCedula" class="form-control" id="inputCedula">
+  </div>
+  <div class="col-md-6" >
+    <label  class="form-label">Fecha de Nacimiento:</label>
+    <input type="date" name="txtFechaNacimiento" class="form-control" id="inputFechaNacimiento">
+  </div>
+  <div class="col-md-6" >
+    <label  class="form-label">Celular:</label>
+    <input type="text" name="txtCelular" class="form-control" id="inputCelular">
+  </div>
+  <div class="col-md-6">
+    <label  class="form-label">Dirección:</label>
+    <input type="text" name="txtDireccion" class="form-control" id="inputDireccion">
+  </div>
+  <div class="col-md-6" >
+    <label  class="form-label">Email:</label>
+    <input type="email" name="txtEmail" class="form-control" id="inputEmail">
+  </div>
+  <div class="col-md-6" >
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4">
+  </div>
+  <div class="col-md-6" >
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4">
+  </div>
+  <div class="col-md-6">
+    <label for="inputCity" class="form-label">City</label>
+    <input type="text" class="form-control" id="inputCity">
+  </div>
+  <div class="col-md-6" >
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4">
+  </div>
+  <div class="col-md-6" >
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4">
+  </div>
+  <div class="col-md-6" >
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4">
+  </div>
+  <div class="col-md-6" >
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4">
+  </div>
+  
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Agregar Registro</button>
+  </div>
+</form>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
-</html>       
 
+</html>
