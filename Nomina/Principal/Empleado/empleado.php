@@ -64,7 +64,7 @@
     <input type="email" class="form-control" id="inputEmail4">
   </div>
   <div class="col-md-6" >
-    <label for="inputEmail4" class="form-label">Email</label>
+    <label for="inputEmail4" class="form-label">Emailkñlkñlklk</label>
     <input type="email" class="form-control" id="inputEmail4">
   </div>
   <div class="col-md-6" >
