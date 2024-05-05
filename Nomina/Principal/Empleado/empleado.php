@@ -28,7 +28,7 @@
     <input type="text" name="txtApellido" class="form-control" id="inputApellido">
   </div>
   <div class="col-md-6" >
-    <label class="form-label">Cedula:</label>
+    <label class="form-label">Cédula:</label>
     <input type="text" name="txtCedula" class="form-control" id="inputCedula">
   </div>
   <div class="col-md-6" >
@@ -55,26 +55,43 @@
     <label  class="form-label">EPS:</label>
     <input type="text" name="txtEps" class="form-control" id="inputEps">
   </div>
+  <div class="col-md-6" >
+    <label  class="form-label">ARL:</label>
+    <input type="text" name="txtArl" class="form-control" id="inputArl">
+  </div>
   <div class="col-md-6">
     <label  class="form-label">Fondo de Pensiones:</label>
     <input type="text"  name="txtFondoPensiones" class="form-control" id="inputFondoPensiones">
   </div>
   <div class="col-md-6" >
-    <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4">
+    <label  class="form-label">Fondo de Cesantias:</label>
+    <input type="text" name="txtFondoCesantias" class="form-control" id="inputFondoCesantias">
   </div>
   <div class="col-md-6" >
-    <label for="inputEmail4" class="form-label">Emailkñlkñlklk</label>
-    <input type="email" class="form-control" id="inputEmail4">
+    <label class="form-label">Entidad Bancaria:</label>
+    <input type="text" name="txtEntidadBancaria" class="form-control" id="inputEntidadBancaria">
   </div>
   <div class="col-md-6" >
-    <label for="inputEmail4" class="form-label">Email</label>
-    <input type="email" class="form-control" id="inputEmail4">
+    <label class="form-label">Número de Cuenta:</label>
+    <input type="text" name="txtNumeroCuenta" class="form-control" id="inputNumeroCuenta">
   </div>
   <div class="col-md-6" >
     <label  class="form-label">Fecha Ingreso:</label>
     <input type="date" name="txtFechaIngreso" class="form-control" id="inputFechaIngreso">
   </div>
+  <div class="col-md-6" >
+    <label  class="form-label">Fecha terminación de Contrato:</label>
+    <input type="date" name="txtFechaTerminacion" class="form-control" id="inputFechaTerminacion">
+  </div>
+  <div class="col-md-6" >
+    <label  class="form-label">Contacto de Emergencia:</label>
+    <input type="text" name="txtContacto" class="form-control" id="inputContacto">
+  </div>
+  <div class="col-md-6" >
+    <label  class="form-label">Número Contacto de Emergencia:</label>
+    <input type="text" name="txtNumeroContacto" class="form-control" id="inputNumeroContacto">
+  </div>
+  
   
   <div class="col-12">
     <button type="submit" class="btn btn-primary">Agregar Registro</button>

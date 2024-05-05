@@ -3,7 +3,7 @@
 
 .container{
     position: relative;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .tituloempleado{
@@ -12,7 +12,7 @@
     text-align: center;
     margin-top: 50px;
     font-family: "Freeman", sans-serif;
-  font-weight: 200;
-  font-style: normal;
+    font-weight: 200;
+    font-style: normal;
 }
   
