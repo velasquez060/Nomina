@@ -12,4 +12,6 @@
   }catch(PDOException $e){
     echo "Error al hacer la conexion con la base de datos" . $e->getMessage();
   }
+
+
 ?>
