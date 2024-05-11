@@ -18,13 +18,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $entidadBancaria = htmlspecialchars($_POST['textEntidadBancaria']);
   $numeroCuenta = htmlspecialchars($_POST['textNumeroCuenta']);
   $fechaIngreso = htmlspecialchars($_POST['textFechaIngreso']);
-  $fechaTerminacion = htmlspecialchars($_POST['textFechaTerminacion']);
+  $fechaTerminacion = !empty($_POST['textFechaTerminacion']) ? $_POST['textFechaTerminacion'] : null;
   $contactoEmergencia = htmlspecialchars($_POST['textContacto']);
   $numeroContactoEmergencia = htmlspecialchars($_POST['textNumeroContacto']);
 
   if (
     !empty($nombre) && !empty($apellido) && !empty($cedula) && !empty($fechaNacimiento) &&
-    !empty($celular) && !empty($direccion) && !empty($correo) && !empty($estadoCivil) && !empty($arl) && !empty($fondoPensiones) && !empty($fondoCesantias) && !empty($entidadBancaria) && !empty($numeroCuenta) && !empty($fechaIngreso) && !empty($contactoEmergencia) && !empty($numeroContactoEmergencia)
+    !empty($celular) && !empty($direccion) && !empty($correo) && !empty($estadoCivil) && !empty($fechaIngreso) && !empty($contactoEmergencia) && !empty($numeroContactoEmergencia) 
+
+  
+    
 ) {
 
   try {
@@ -119,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Celular:</label>
-        <input type="text" name="textCelular" class="form-control" id="inputCelular">
+        <input type="text" name="textCelular" class="form-control" id="inputCelular" >
       </div>
       <div class="col-md-6">
         <label class="form-label">Dirección:</label>
@@ -163,7 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Fecha terminación de Contrato:</label>
-        <input type="date" name="textFechaTerminacion" class="form-control" id="inputFechaTerminacion">
+        <input type="date" name="textFechaTerminacion" class="form-control">
       </div>
       <div class="col-md-6">
         <label class="form-label">Contacto de Emergencia:</label>
