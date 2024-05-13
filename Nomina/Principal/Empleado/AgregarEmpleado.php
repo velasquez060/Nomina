@@ -1,6 +1,7 @@
 <?php
 
 require('../../conexion/conexion.php');
+//include('Menu.php');
 
 
 
@@ -94,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="../../Css/empleado.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+  <link rel="stylesheet" href="../../Css/menu.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script src="../../js/validacionCampos.js"></script>
   <title>Document</title>
@@ -103,10 +104,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 
-  <H1 class="tituloempleado">Ficha Empleado</H1>
+  <H1 class="tituloempleado">FICHA EMPLEADO</H1>
+  <br>
+  <div class="container col-md-9">
+  <div class="menu-hamburguesa" col-md-2>
+    <div class="menu-icono" onclick="toggleMenu()">
+        <div class="barra"></div>
+        <div class="barra"></div>
+        <div class="barra"></div>
+    </div>
+    <nav class="menu-lateral">
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Agregar Empleado</a></li>
+            <li><a href="#">Lista Empleados</a></li>
+            <li><a href="#">Nomina</a></li>
+        </ul>
+    </nav>
+</div>
 
-  <div class="container d-flex justify-content-center">
-    <form class="row g-3 " action="AgregarEmpleado.php" method="POST" autocomplete="on" >
+    <form class="row g-3 prueba" action="AgregarEmpleado.php" method="POST" autocomplete="on" >
       <div class="col-md-6">
         <label class="form-label">Nombre:</label>
         <input type="texto" name="textNombre" class="form-control" id="inputNombre">
@@ -186,13 +203,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
       <div class="col-12">
-        <button type="submit" class="btn btn-primary" value="Registrar"  name="registrar" id="prueba" onclick="prueba">Registrar</button>
+        <button type="submit" class="btn btn-primary" value="Registrar"  name="registrar" id="registrar" onclick="prueba">Registrar</button>
       </div>
+    
     </form>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../../js/menu.js"></script>
 </body>
 
 </html>
