@@ -2,6 +2,9 @@
 
 require('../../conexion/conexion.php');
 
+
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $nombre = htmlspecialchars($_POST['textNombre']); 
   $apellido = htmlspecialchars($_POST['textApellido']);
@@ -62,10 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
       if ($stmt->rowCount() > 0) {
         //echo "<script>alert('Usuario Agregado Correctamente');</script>";
-      
+
         header("Location: ListaEmpleados.php");
-        //exit();
-  
         
       }
     
@@ -81,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
+
 ?>
 
 <!DOCTYPE html>
@@ -94,8 +96,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <script src="../../Js/prueba.js"></script>
+  <script src="../../js/validacionCampos.js"></script>
   <title>Document</title>
+  
 </head>
 
 <body>
@@ -103,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <H1 class="tituloempleado">Ficha Empleado</H1>
 
   <div class="container d-flex justify-content-center">
-    <form class="row g-3 " action="AgregarEmpleado.php" method="POST">
+    <form class="row g-3 " action="AgregarEmpleado.php" method="POST" autocomplete="on" >
       <div class="col-md-6">
         <label class="form-label">Nombre:</label>
         <input type="texto" name="textNombre" class="form-control" id="inputNombre">
@@ -114,7 +117,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Cédula:</label>
-        <input type="text" name="textCedula" class="form-control" id="inputCedula">
+        <input type="text" name="textCedula" class="form-control" id="numeroEntero_1" oninput="validarNumeroEntero('numeroEntero_1')">
+        <p id="mensajeError_1"></p>
       </div>
       <div class="col-md-6">
         <label class="form-label">Fecha de Nacimiento:</label>
@@ -122,7 +126,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Celular:</label>
-        <input type="text" name="textCelular" class="form-control" id="inputCelular" >
+        <input type="text" name="textCelular" class="form-control" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')" >
+        <p id="mensajeError_2"></p>
       </div>
       <div class="col-md-6">
         <label class="form-label">Dirección:</label>
@@ -158,7 +163,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Número de Cuenta:</label>
-        <input type="text" name="textNumeroCuenta" class="form-control" id="inputNumeroCuenta">
+        <input type="text" name="textNumeroCuenta" class="form-control" id="numeroEntero_3" oninput="validarNumeroEntero('numeroEntero_3')">
+        <p id="mensajeError_3"></p>
       </div>
       <div class="col-md-6">
         <label class="form-label">Fecha Ingreso:</label>
@@ -174,12 +180,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Número Contacto de Emergencia:</label>
-        <input type="text" name="textNumeroContacto" class="form-control" id="inputNumeroContacto">
+        <input type="text" name="textNumeroContacto" class="form-control" id="numeroEntero_4" oninput="validarNumeroEntero('numeroEntero_4')">
+        <p id="mensajeError_4"></p>
       </div>
 
 
       <div class="col-12">
-        <input type="submit" value="Registrar" style="background-color: #3176E0;" name="registrar" id="prueba" onclick="prueba">
+        <button type="submit" class="btn btn-primary" value="Registrar"  name="registrar" id="prueba" onclick="prueba">Registrar</button>
       </div>
     </form>
   </div>
