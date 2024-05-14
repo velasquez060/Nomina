@@ -205,6 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="col-12">
         <button type="submit" class="btn btn-primary" value="Registrar"  name="registrar" id="registrar" onclick="prueba">Registrar</button>
       </div>
+      
     
     </form>
   </div>
