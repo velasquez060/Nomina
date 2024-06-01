@@ -53,7 +53,7 @@ body {
 }
 
 .menu-lateral ul li {
-    padding: 2px;
+    padding: 10px;
 }
 
 .menu-lateral ul li a {
@@ -70,7 +70,5 @@ body {
     background-color: #ffffff;
     color: black !important;
 }
-
-
 
 

@@ -1,7 +1,3 @@
-<?php
-require('../Menu.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +6,6 @@ require('../Menu.php');
     <title>Document</title>
 </head>
 <body>
-    <p style="text-align: center;">Lista de Empelados</p>
+    <p>prueba qa</p>
 </body>
 </html>

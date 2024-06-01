@@ -28,7 +28,8 @@
     font-optical-sizing: auto;
     font-weight: 400px;
     font-style: normal;
-    font-variation-settings:"wdth" 200; 
+    font-variation-settings:"wdth" 200;
+    font-weight: 500;  
     
 }
 
@@ -47,10 +48,6 @@
 .was-validated .form-control:invalid ~ .invalid-feedback {
     display: block; /* Muestra el mensaje de error */
     }
-
-
-
-
 
 
 
