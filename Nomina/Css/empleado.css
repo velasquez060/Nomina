@@ -5,7 +5,10 @@
     padding: 0;
 }
 
-
+.alert {
+    color: red;
+    font-weight: bold;
+}
 
 .tituloempleado{
     display: flex;
@@ -36,7 +39,15 @@
 
 }
 
-
+.was-validated .form-control:valid {
+    border-color: #28a745; /* Verde */
+    }
+.was-validated .form-control:invalid {
+    border-color: #dc3545; /* Rojo */
+    }
+.was-validated .form-control:invalid ~ .invalid-feedback {
+    display: block; /* Muestra el mensaje de error */
+    }
 
 
 

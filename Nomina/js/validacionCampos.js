@@ -8,10 +8,30 @@ function validarNumeroEntero(idInput) {
 
     if (!esNumeroEntero) {
         mensajeError.innerText = "Por favor, introduce solo números enteros.";
+        mensajeError.style =' red'
         input.value = valor.slice(0, -1); 
     } else {
         mensajeError.innerText = "";
     }
 }
+
+// Validación personalizada de Bootstrap
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        // Seleccionar todos los formularios que queremos aplicar estilos de validación
+        var forms = document.getElementsByClassName('needs-validation');
+        // Iterar sobre ellos y prevenir el envío
+        Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
 
 
