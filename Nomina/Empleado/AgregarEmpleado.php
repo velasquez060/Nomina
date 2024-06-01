@@ -111,22 +111,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
   <H1 class="tituloempleado">FICHA EMPLEADO</H1>
-  <br>
-  <div class="container col-md-9">
-  <div class="menu-hamburguesa" col-md-2>
-    <div class="menu-icono" onclick="toggleMenu()">
-        <div class="barra"></div>
-        <div class="barra"></div>
-        <div class="barra"></div>
-    </div>
-    <nav class="menu-lateral">
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Agregar Empleado</a></li>
-            <li><a href="#">Lista Empleados</a></li>
-            <li><a href="#">Nomina</a></li>
-        </ul>
-    </nav>
 </div>
 
     <form class="row g-3 pureba needs-validation" novalidate id="formulario"  action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
