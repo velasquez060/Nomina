@@ -10,6 +10,7 @@ function validarNumeroEntero(idInput) {
         mensajeError.innerText = "Por favor, introduce solo números enteros.";
         mensajeError.style =' red'
         input.value = valor.slice(0, -1); 
+        mensajeError.style.color = "red";
     } else {
         mensajeError.innerText = "";
     }

@@ -7,23 +7,23 @@ require('../../conexion/conexion.php');
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $nombre = htmlspecialchars(ucwords($_POST['textNombre'])); 
-  $apellido = htmlspecialchars(ucwords($_POST['textApellido']));
+  $nombre = htmlspecialchars($_POST['textNombre']); 
+  $apellido = htmlspecialchars($_POST['textApellido']);
   $cedula = htmlspecialchars($_POST['textCedula']);
   $fechaNacimiento = htmlspecialchars($_POST['textFechaNacimiento']);
   $celular = htmlspecialchars($_POST['textCelular']);
-  $direccion = htmlspecialchars(ucwords($_POST['textDireccion']));
+  $direccion = htmlspecialchars($_POST['textDireccion']);
   $correo = htmlspecialchars($_POST['textCorreo']);
-  $estadoCivil = htmlspecialchars(ucwords($_POST['textEstadoCivil']));
-  $eps = htmlspecialchars(ucwords($_POST['textEps']));
-  $arl = htmlspecialchars(ucwords($_POST['textArl']));
-  $fondoPensiones = htmlspecialchars(ucwords($_POST['textFondoPensiones']));
-  $fondoCesantias = htmlspecialchars(ucwords($_POST['textFondoCesantias']));
-  $entidadBancaria = htmlspecialchars(ucwords($_POST['textEntidadBancaria']));
+  $estadoCivil = htmlspecialchars($_POST['textEstadoCivil']);
+  $eps = htmlspecialchars($_POST['textEps']);
+  $arl = htmlspecialchars($_POST['textArl']);
+  $fondoPensiones = htmlspecialchars($_POST['textFondoPensiones']);
+  $fondoCesantias = htmlspecialchars($_POST['textFondoCesantias']);
+  $entidadBancaria = htmlspecialchars($_POST['textEntidadBancaria']);
   $numeroCuenta = htmlspecialchars($_POST['textNumeroCuenta']);
   $fechaIngreso = htmlspecialchars($_POST['textFechaIngreso']);
   $fechaTerminacion = !empty($_POST['textFechaTerminacion']) ? $_POST['textFechaTerminacion'] : null;
-  $contactoEmergencia = htmlspecialchars(ucwords($_POST['textContacto']));
+  $contactoEmergencia = htmlspecialchars($_POST['textContacto']);
   $numeroContactoEmergencia = htmlspecialchars($_POST['textNumeroContacto']);
 
   if (
@@ -65,19 +65,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   
       if ($stmt->rowCount() > 0) {
-        echo "<script>alert('Usuario Agregado Correctamente');</script>";
+        //echo "<script>alert('Usuario Agregado Correctamente');</script>";
 
-        header("Location: AgregarEmpleado.php");
+        header("Location: ListaEmpleados.php");
         
       }
     
   } catch (Exception $e) {
     echo $e->getMessage();
-  }finally{
-    
-    $stmt->close();
-    $conexion->close();
-
   }
     
 } else {
@@ -87,8 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   //echo "No se recibieron datos del formulario.";
 
 }
-
-
 
 
 ?>
@@ -104,8 +97,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../../Css/menu.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script src="../../js/validacionCampos.js"></script>
   <title>Document</title>
-
+  
 </head>
 
 <body>
@@ -129,48 +123,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
 </div>
 
-    <form class="row g-3 pureba needs-validation" novalidate id="formulario"  action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
+    <form class="row g-3 prueba" action="AgregarEmpleado.php" method="POST" autocomplete="on" >
       <div class="col-md-6">
         <label class="form-label">Nombre:</label>
-        <input type="texto" name="textNombre" class="form-control" id="inputNombre" required>
-        <div class="invalid-feedback">Por favor ingrese Nombre.</div>
+        <input type="texto" name="textNombre" class="form-control" id="inputNombre">
       </div>
       <div class="col-md-6">
         <label class="form-label">Apellido:</label>
-        <input type="text" name="textApellido" class="form-control" id="inputApellido" required>
-        <div class="invalid-feedback">Por favor ingrese Apellido.</div>
+        <input type="text" name="textApellido" class="form-control" id="inputApellido">
       </div>
       <div class="col-md-6">
         <label class="form-label">Cédula:</label>
-        <input type="text" name="textCedula" class="form-control" id="numeroEntero_1" oninput="validarNumeroEntero('numeroEntero_1')" required>
-        <div class="invalid-feedback">Por favor ingrese el Número de Cédula.</div>
+        <input type="text" name="textCedula" class="form-control" id="numeroEntero_1" oninput="validarNumeroEntero('numeroEntero_1')">
         <p id="mensajeError_1"></p>
       </div>
       <div class="col-md-6">
         <label class="form-label">Fecha de Nacimiento:</label>
-        <input type="date" name="textFechaNacimiento" class="form-control" id="inputFechaNacimiento" required>
-        <div class="invalid-feedback">Por favor ingrese la Fecha de Nacimiento.</div>
+        <input type="date" name="textFechaNacimiento" class="form-control" id="inputFechaNacimiento">
       </div>
       <div class="col-md-6">
         <label class="form-label">Celular:</label>
-        <input type="text" name="textCelular" class="form-control" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')" required >
-        <div class="invalid-feedback">Por favor ingrese el Número de Celular.</div>
+        <input type="text" name="textCelular" class="form-control" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')" >
         <p id="mensajeError_2"></p>
       </div>
       <div class="col-md-6">
         <label class="form-label">Dirección:</label>
-        <input type="text" name="textDireccion" class="form-control" id="inputDireccion" required>
-        <div class="invalid-feedback">Por favor ingrese la Dirección.</div>
+        <input type="text" name="textDireccion" class="form-control" id="inputDireccion">
       </div>
       <div class="col-md-6">
         <label class="form-label">Correo:</label>
-        <input type="email" name="textCorreo" class="form-control" id="inputCorreo" required>
-        <div class="invalid-feedback">Por favor ingrese el Correo.</div>
+        <input type="email" name="textCorreo" class="form-control" id="inputCorreo">
       </div>
       <div class="col-md-6">
         <label class="form-label">Estado Civil:</label>
-        <input type="text" name="textEstadoCivil" class="form-control" id="inputEstadoCivil" required>
-        <div class="invalid-feedback">Por favor ingrese Estado Civil.</div>
+        <input type="text" name="textEstadoCivil" class="form-control" id="inputEstadoCivil">
       </div>
       <div class="col-md-6">
         <label class="form-label">EPS:</label>
@@ -199,8 +185,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Fecha Ingreso:</label>
-        <input type="date" name="textFechaIngreso" class="form-control" id="inputFechaIngreso" required>
-        <div class="invalid-feedback">Por favor ingrese la Fecha de Ingreso.</div>
+        <input type="date" name="textFechaIngreso" class="form-control" id="inputFechaIngreso">
       </div>
       <div class="col-md-6">
         <label class="form-label">Fecha terminación de Contrato:</label>
@@ -208,38 +193,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Contacto de Emergencia:</label>
-        <input type="text" name="textContacto" class="form-control" id="inputContacto" required>
-        <div class="invalid-feedback">Por favor ingrese el Nombre de contacto.</div>
+        <input type="text" name="textContacto" class="form-control" id="inputContacto">
       </div>
       <div class="col-md-6">
         <label class="form-label">Número Contacto de Emergencia:</label>
-        <input type="text" name="textNumeroContacto" class="form-control" id="numeroEntero_4" oninput="validarNumeroEntero('numeroEntero_4')" required>
-        <div class="invalid-feedback">Por favor ingrese el Número de contacto.</div>
+        <input type="text" name="textNumeroContacto" class="form-control" id="numeroEntero_4" oninput="validarNumeroEntero('numeroEntero_4')">
         <p id="mensajeError_4"></p>
       </div>
 
 
       <div class="col-12">
-        
-        <br>
-        <!-- adjuntar archivo -->
-        <input class="form-control" type ="file" name="archivo" id="">
-        <br>
-        <br>
         <button type="submit" class="btn btn-primary" value="Registrar"  name="registrar" id="registrar" onclick="prueba">Registrar</button>
       </div>
       
     
     </form>
-    <div id="alerta" class="alert"></div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../../js/menu.js"></script>
-  <script src="../../js/validacionCampos.js"></script>
-
-  
 </body>
 
 </html>
