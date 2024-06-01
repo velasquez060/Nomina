@@ -1,7 +1,7 @@
 <?php
 
-require('../../conexion/conexion.php');
-//include('Menu.php');
+require('../conexion/conexion.php');
+require('../Menu.php');
 
 
 
@@ -65,14 +65,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   
       if ($stmt->rowCount() > 0) {
-        //echo "<script>alert('Usuario Agregado Correctamente');</script>";
+        echo "<script>alert('Usuario Agregado Correctamente');</script>";
 
-        header("Location: ListaEmpleados.php");
+        header("Location: AgregarEmpleado.php");
         
       }
     
   } catch (Exception $e) {
     echo $e->getMessage();
+  }finally{
+    
+    $stmt->close();
+    $conexion->close();
+
   }
     
 } else {
@@ -92,12 +97,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../Css/empleado.css">
+  <link rel="stylesheet" href="../Css/empleado.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../../Css/menu.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <script src="../../js/validacionCampos.js"></script>
+  <script src="../js/validacionCampos.js"></script>
   <title>Document</title>
   
 </head>
@@ -107,22 +111,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <H1 class="tituloempleado">FICHA EMPLEADO</H1>
   <br>
   <div class="container col-md-9">
-  <div class="menu-hamburguesa" col-md-2>
-    <div class="menu-icono" onclick="toggleMenu()">
-        <div class="barra"></div>
-        <div class="barra"></div>
-        <div class="barra"></div>
-    </div>
-    <nav class="menu-lateral">
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Agregar Empleado</a></li>
-            <li><a href="#">Lista Empleados</a></li>
-            <li><a href="#">Nomina</a></li>
-        </ul>
-    </nav>
-</div>
-
     <form class="row g-3 prueba" action="AgregarEmpleado.php" method="POST" autocomplete="on" >
       <div class="col-md-6">
         <label class="form-label">Nombre:</label>
@@ -211,8 +199,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="../../js/menu.js"></script>
 </body>
 
 </html>

@@ -25,8 +25,7 @@
     font-optical-sizing: auto;
     font-weight: 400px;
     font-style: normal;
-    font-variation-settings:"wdth" 200;
-    font-weight: 500;  
+    font-variation-settings:"wdth" 200; 
     
 }
 
@@ -35,6 +34,10 @@
     top: -10px;
 
 }
+
+
+
+
 
 
 
