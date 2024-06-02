@@ -66,7 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
       if ($stmt->rowCount() > 0) {
         echo "<script>alert('Usuario Agregado Correctamente');</script>";
-
         header("Location: AgregarEmpleado.php");
         
       }
@@ -111,7 +110,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
   <H1 class="tituloempleado">FICHA EMPLEADO</H1>
-</div>
+  <br>
+  <div class="container col-md-9">
 
     <form class="row g-3 pureba needs-validation" novalidate id="formulario"  action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
       <div class="col-md-6">
@@ -215,6 +215,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       
     
     </form>
+    </div>
     <div id="alerta" class="alert"></div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
