@@ -26,6 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $contactoEmergencia = htmlspecialchars(ucwords($_POST['textContacto']));
   $numeroContactoEmergencia = htmlspecialchars($_POST['textNumeroContacto']);
 
+
+  $archivo = $_FILES["archivo"]["name"];
+  $archivo_temp = $_FILES["archivo"]["tmp_name"];
+  $ruta_archivo = '../archivosPdf/' . $archivo;
+  move_uploaded_file($archivo_temp, $ruta_archivo);
+
   if (
     !empty($nombre) && !empty($apellido) && !empty($cedula) && !empty($fechaNacimiento) &&
     !empty($celular) && !empty($direccion) && !empty($correo) && !empty($estadoCivil) && !empty($fechaIngreso) && !empty($contactoEmergencia) && !empty($numeroContactoEmergencia) 
@@ -36,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   try {
 
-    $sql = "INSERT INTO empleado (nombre, apellido, cedula, fechaNacimiento, celular, direccion, correo, estadoCivil, eps, arl, fondoPensiones, fondoCesantias, entidadBancaria, numeroCuenta, fechaIngreso, fechaTerminacion, contactoEmergencia, numeroContactoEmergencia) VALUES (:nombre, :apellido, :cedula, :fechaNacimiento, :celular, :direccion, :correo, :estadoCivil, :eps, :arl, :fondoPensiones, :fondoCesantias, :entidadBancaria, :numeroCuenta, :fechaIngreso, :fechaTerminacion, :contactoEmergencia, :numeroContactoEmergencia)";
+    $sql = "INSERT INTO empleado (nombre, apellido, cedula, fechaNacimiento, celular, direccion, correo, estadoCivil, eps, arl, fondoPensiones, fondoCesantias, entidadBancaria, numeroCuenta, fechaIngreso, fechaTerminacion, contactoEmergencia, numeroContactoEmergencia, archivo) VALUES (:nombre, :apellido, :cedula, :fechaNacimiento, :celular, :direccion, :correo, :estadoCivil, :eps, :arl, :fondoPensiones, :fondoCesantias, :entidadBancaria, :numeroCuenta, :fechaIngreso, :fechaTerminacion, :contactoEmergencia, :numeroContactoEmergencia, :archivo)";
   
   $stmt = $conexion->prepare($sql);
   
@@ -58,6 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stmt->bindParam(':fechaTerminacion', $fechaTerminacion);
   $stmt->bindParam(':contactoEmergencia', $contactoEmergencia);
   $stmt->bindParam(':numeroContactoEmergencia', $numeroContactoEmergencia);
+  $stmt->bindParam(':archivo', $ruta_archivo);
+
+  
   
   
   
@@ -65,7 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   
       if ($stmt->rowCount() > 0) {
-        echo "<script>alert('Usuario Agregado Correctamente');</script>";
+        echo "<script> alert ('Usuario Agregado Correctamente');</script>";
+
         header("Location: AgregarEmpleado.php");
         
       }
@@ -86,9 +96,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   //echo "No se recibieron datos del formulario.";
 
 }
-
-
-
 
 ?>
 
@@ -111,48 +118,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <H1 class="tituloempleado">FICHA EMPLEADO</H1>
   <br>
-  <div class="container col-md-9">
+  <br>
+  <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
+  <br>
+  <br>
+  <div class="container col-md-8">
 
     <form class="row g-3 pureba needs-validation" novalidate id="formulario"  action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
       <div class="col-md-6">
-        <label class="form-label">Nombre:</label>
+        <label class="form-label">Nombre: <span style="color: red;">*</span></label>
         <input type="texto" name="textNombre" class="form-control" id="inputNombre" required>
         <div class="invalid-feedback">Por favor ingrese Nombre.</div>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Apellido:</label>
+        <label class="form-label">Apellido: <span style="color: red;">*</span></label>
         <input type="text" name="textApellido" class="form-control" id="inputApellido" required>
         <div class="invalid-feedback">Por favor ingrese Apellido.</div>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Cédula:</label>
+        <label class="form-label">Cédula:<span style="color: red;">*</span></label>
         <input type="text" name="textCedula" class="form-control" id="numeroEntero_1" oninput="validarNumeroEntero('numeroEntero_1')" required>
         <div class="invalid-feedback">Por favor ingrese el Número de Cédula.</div>
         <p id="mensajeError_1"></p>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Fecha de Nacimiento:</label>
+        <label class="form-label">Fecha de Nacimiento:<span style="color: red;">*</span></label>
         <input type="date" name="textFechaNacimiento" class="form-control" id="inputFechaNacimiento" required>
         <div class="invalid-feedback">Por favor ingrese la Fecha de Nacimiento.</div>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Celular:</label>
+        <label class="form-label">Celular: <span style="color: red;">*</span></label>
         <input type="text" name="textCelular" class="form-control" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')" required >
         <div class="invalid-feedback">Por favor ingrese el Número de Celular.</div>
         <p id="mensajeError_2"></p>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Dirección:</label>
+        <label class="form-label">Dirección: <span style="color: red;">*</span></label>
         <input type="text" name="textDireccion" class="form-control" id="inputDireccion" required>
         <div class="invalid-feedback">Por favor ingrese la Dirección.</div>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Correo:</label>
+        <label class="form-label">Correo: <span style="color: red;">*</span></label>
         <input type="email" name="textCorreo" class="form-control" id="inputCorreo" required>
         <div class="invalid-feedback">Por favor ingrese el Correo.</div>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Estado Civil:</label>
+        <label class="form-label">Estado Civil: <span style="color: red;">*</span></label>
         <input type="text" name="textEstadoCivil" class="form-control" id="inputEstadoCivil" required>
         <div class="invalid-feedback">Por favor ingrese Estado Civil.</div>
       </div>
@@ -182,7 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p id="mensajeError_3"></p>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Fecha Ingreso:</label>
+        <label class="form-label">Fecha Ingreso:<span style="color: red;">*</span></label>
         <input type="date" name="textFechaIngreso" class="form-control" id="inputFechaIngreso" required>
         <div class="invalid-feedback">Por favor ingrese la Fecha de Ingreso.</div>
       </div>
@@ -191,12 +202,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="date" name="textFechaTerminacion" class="form-control">
       </div>
       <div class="col-md-6">
-        <label class="form-label">Contacto de Emergencia:</label>
+        <label class="form-label">Contacto de Emergencia: <span style="color: red;">*</span></label>
         <input type="text" name="textContacto" class="form-control" id="inputContacto" required>
         <div class="invalid-feedback">Por favor ingrese el Nombre de contacto.</div>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Número Contacto de Emergencia:</label>
+        <label class="form-label">Número Contacto de Emergencia:<span style="color: red;">*</span> </label> 
         <input type="text" name="textNumeroContacto" class="form-control" id="numeroEntero_4" oninput="validarNumeroEntero('numeroEntero_4')" required>
         <div class="invalid-feedback">Por favor ingrese el Número de contacto.</div>
         <p id="mensajeError_4"></p>
@@ -206,7 +217,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="col-12">
         
         <br>
-        <!-- adjuntar archivo -->
+        
         <input class="form-control" type ="file" name="archivo" id="">
         <br>
         <br>

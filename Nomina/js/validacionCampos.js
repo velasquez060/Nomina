@@ -15,13 +15,13 @@ function validarNumeroEntero(idInput) {
     }
 }
 
-// Validación personalizada de Bootstrap
+
 (function() {
     'use strict';
     window.addEventListener('load', function() {
-        // Seleccionar todos los formularios que queremos aplicar estilos de validación
+        
         var forms = document.getElementsByClassName('needs-validation');
-        // Iterar sobre ellos y prevenir el envío
+        
         Array.prototype.filter.call(forms, function(form) {
             form.addEventListener('submit', function(event) {
                 if (form.checkValidity() === false) {

@@ -5,12 +5,22 @@
     padding: 0;
 }
 
-.alert {
-    color: red;
-    font-weight: bold;
+
+p{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 30px;
+    font-family: "Pathway Extreme", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400px;
+    font-style: normal;
+    font-variation-settings:"wdth" 100;
 }
 
-.tituloempleado{
+
+
+.tituloempleado {
     display: flex;
     justify-content: center;
     text-align: center;
