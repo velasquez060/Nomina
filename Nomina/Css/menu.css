@@ -39,10 +39,10 @@ body {
     width: 180px;
     height: 100%;
     background-color: #333;
-    padding-top: 60px;
+    padding-top: 90px;
     transition: left 0.3s ease; /* Agregar la transición */
     z-index: 900;
-    background-color: var(--colorPrincipal);
+    background-color: #987698;
 }
 
 
@@ -52,9 +52,10 @@ body {
     padding: 0;
 }
 
-.menu-lateral ul li {
-    padding: 10px;
-}
+/*.menu-lateral ul li {
+    padding: 5px;
+}*/
+
 
 .menu-lateral ul li a {
     color: white;
@@ -63,7 +64,7 @@ body {
     padding: 5px;
     transition: background-color 0.3s ease;
     position: relative;
-    margin-top: 10px;
+    
 }
 
 .menu-lateral ul li a:hover {
