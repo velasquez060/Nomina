@@ -34,4 +34,11 @@ function validarNumeroEntero(idInput) {
     }, false);
 })();
 
-
+document.getElementById('fileInput').addEventListener('change', function(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+        var output = document.getElementById('preview');
+        output.innerHTML = '<img src="' + reader.result + '" alt="Vista previa de la imagen" style="max-width: 300px; max-height: 300px;"/>';
+    };
+    reader.readAsDataURL(event.target.files[0]);
+});
