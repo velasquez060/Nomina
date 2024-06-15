@@ -26,6 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $contactoEmergencia = htmlspecialchars(ucwords($_POST['textContacto']));
   $numeroContactoEmergencia = htmlspecialchars($_POST['textNumeroContacto']);
 
+  //metodo para subir foto del empleado
+  $imagen = $_FILES["imagen"]["name"];
+  $imagen_tmp = $_FILES["imagen"]["tmp_name"];
+  $ruta_imagen = '../fotos/' . $imagen;
+  move_uploaded_file($imagen_tmp, $ruta_imagen);
+
 
   $archivo = $_FILES["archivo"]["name"];
   $archivo_temp = $_FILES["archivo"]["tmp_name"];
@@ -42,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   try {
 
-    $sql = "INSERT INTO empleado (nombre, apellido, cedula, fechaNacimiento, celular, direccion, correo, estadoCivil, eps, arl, fondoPensiones, fondoCesantias, entidadBancaria, numeroCuenta, fechaIngreso, fechaTerminacion, contactoEmergencia, numeroContactoEmergencia, archivo) VALUES (:nombre, :apellido, :cedula, :fechaNacimiento, :celular, :direccion, :correo, :estadoCivil, :eps, :arl, :fondoPensiones, :fondoCesantias, :entidadBancaria, :numeroCuenta, :fechaIngreso, :fechaTerminacion, :contactoEmergencia, :numeroContactoEmergencia, :archivo)";
+    $sql = "INSERT INTO empleado (nombre, apellido, cedula, fechaNacimiento, celular, direccion, correo, estadoCivil, eps, arl, fondoPensiones, fondoCesantias, entidadBancaria, numeroCuenta, fechaIngreso, fechaTerminacion, contactoEmergencia, numeroContactoEmergencia, archivo, fotoempleado) VALUES (:nombre, :apellido, :cedula, :fechaNacimiento, :celular, :direccion, :correo, :estadoCivil, :eps, :arl, :fondoPensiones, :fondoCesantias, :entidadBancaria, :numeroCuenta, :fechaIngreso, :fechaTerminacion, :contactoEmergencia, :numeroContactoEmergencia, :archivo, :fotoempleado)";
   
   $stmt = $conexion->prepare($sql);
   
@@ -64,7 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $stmt->bindParam(':fechaTerminacion', $fechaTerminacion);
   $stmt->bindParam(':contactoEmergencia', $contactoEmergencia);
   $stmt->bindParam(':numeroContactoEmergencia', $numeroContactoEmergencia);
+  $stmt->bindParam(':numeroContactoEmergencia', $numeroContactoEmergencia);
   $stmt->bindParam(':archivo', $ruta_archivo);
+  $stmt->bindParam(':fotoempleado', $ruta_imagen);
 
   
   
@@ -78,7 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         header("Location: AgregarEmpleado.php");
         
-        echo $RutaDestino;
       }
     
   } catch (Exception $e) {
@@ -120,6 +127,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <H1 class="tituloempleado">FICHA EMPLEADO</H1>
   <br>
   <br>
+  <div class="contenedorfoto">
+        <div id="preview"></div>
+        <form action="fotoempleado.php" method="post" enctype="multipart/form-data">
+            Imagen:
+            <input type="file" name="imagen" id="fileInput">
+            <br>
+        </form>
+    </div>
   <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
   <br>
   <br>
