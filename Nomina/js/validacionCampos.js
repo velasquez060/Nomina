@@ -1,3 +1,5 @@
+
+
 function validarNumeroEntero(idInput) {
     const input = document.getElementById(idInput);
     const valor = input.value;

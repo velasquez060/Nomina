@@ -84,21 +84,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   
       if ($stmt->rowCount() > 0) {
-        echo "<script>
-        alert('Usuario Agregado Correctamente');
-        window.location.href = 'AgregarEmpleado.php';
-    </script>";
-    exit;
+       sleep(6);
+    //exit;
         
       }
     
   } catch (Exception $e) {
     echo $e->getMessage();
-  }finally{
-    
-    $stmt->close();
-    $conexion->close();
-
   }
     
 } else {
@@ -118,6 +110,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../Css/empleado.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="sweetalert2/dist/sweetalert2.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../Css/menu.css">
@@ -239,7 +233,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input class="form-control" type ="file" name="archivo" id="">
         <br>
         <br>
-        <button type="submit" class="btn btn-primary" value="Registrar"  name="registrar" id="registrar" onclick="prueba">Registrar</button>
+        <button type="submit" class="btn btn-primary" value="Registrar"  name="registrar" id="registrar" >Registrar</button>
+        
       </div>
       
     
@@ -249,6 +244,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+  <script src="../js/alerta.js"></script>
   <script src="../js/menu.js"></script>
   <script src="../js/validacionCampos.js"></script>
 
