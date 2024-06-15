@@ -32,6 +32,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $ruta_imagen = '../fotos/' . $imagen;
   move_uploaded_file($imagen_tmp, $ruta_imagen);
 
+  
+
 
   $archivo = $_FILES["archivo"]["name"];
   $archivo_temp = $_FILES["archivo"]["tmp_name"];
@@ -82,9 +84,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   
       if ($stmt->rowCount() > 0) {
-        echo "<script> alert ('Usuario Agregado Correctamente');</script>";
-
-        header("Location: AgregarEmpleado.php");
+        echo "<script>
+        alert('Usuario Agregado Correctamente');
+        window.location.href = 'AgregarEmpleado.php';
+    </script>";
+    exit;
         
       }
     
@@ -117,7 +121,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../Css/menu.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <title>Document</title>
 
 </head>
@@ -126,21 +129,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <H1 class="tituloempleado">FICHA EMPLEADO</H1>
   <br>
-  <br>
-  <div class="contenedorfoto">
-        <div id="preview"></div>
-        <form action="fotoempleado.php" method="post" enctype="multipart/form-data">
-            Imagen:
-            <input type="file" name="imagen" id="fileInput">
-            <br>
-        </form>
-    </div>
+  
+  
   <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
-  <br>
+  <div class="contenedorfoto">
+    <div class="circle-container" id="preview"></div>
+    
+  </div>
   <br>
   <div class="container col-md-8">
 
     <form class="row g-3 pureba needs-validation" novalidate id="formulario"  action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
+    <div class="col-md-1 contenedorfoto" >
+      <label for="">Foto:</label>
+        <input class="form-control" type ="file" name="imagen" id="fileInput">
+    </div>
       <div class="col-md-6">
         <label class="form-label">Nombre: <span style="color: red;">*</span></label>
         <input type="texto" name="textNombre" class="form-control" id="inputNombre" required>
@@ -231,7 +234,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
       <div class="col-12">
-        
         <br>
         
         <input class="form-control" type ="file" name="archivo" id="">

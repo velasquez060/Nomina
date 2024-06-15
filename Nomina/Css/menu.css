@@ -42,7 +42,7 @@ body {
     padding-top: 90px;
     transition: left 0.3s ease; /* Agregar la transición */
     z-index: 900;
-    background-color: #987698;
+    background-color: var(--colorPrincipal);
 }
 
 

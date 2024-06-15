@@ -8,7 +8,7 @@ function validarNumeroEntero(idInput) {
 
     if (!esNumeroEntero) {
         mensajeError.innerText = "Por favor, introduce solo números enteros.";
-        mensajeError.style =' red'
+        mensajeError.style.color ='red'
         input.value = valor.slice(0, -1); 
     } else {
         mensajeError.innerText = "";
