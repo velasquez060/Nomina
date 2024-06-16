@@ -10,10 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
           icon: 'success',
           confirmButtonText: 'Ok',
       });
-
-      setTimeout(() => {
-          window.location.href = 'AgregarEmpleado.php'; 
-      }, 3000); 
   });
 });
 

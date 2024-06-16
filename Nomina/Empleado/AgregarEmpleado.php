@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   
       if ($stmt->rowCount() > 0) {
-       sleep(6);
+       echo "<script>alert('Se Agrego el Empleado');</script>";
     //exit;
         
       }
@@ -120,24 +120,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-
-  <H1 class="tituloempleado">FICHA EMPLEADO</H1>
-  <br>
-  
-  
-  <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
-  <div class="contenedorfoto">
+<div class="titulo">
+<H1 class="tituloempleado">FICHA EMPLEADO</H1>
+<br>
+<div class="contenedorfoto">
     <div class="circle-container" id="preview"></div>
     
   </div>
-  <br>
+</div>
+  
   <div class="container col-md-8">
 
     <form class="row g-3 pureba needs-validation" novalidate id="formulario"  action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
-    <div class="col-md-1 contenedorfoto" >
-      <label for="">Foto:</label>
+    
+    <div class="col-md-6" >
+      <p class="foto">Foto:</p>
         <input class="form-control" type ="file" name="imagen" id="fileInput">
     </div>
+    <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
       <div class="col-md-6">
         <label class="form-label">Nombre: <span style="color: red;">*</span></label>
         <input type="texto" name="textNombre" class="form-control" id="inputNombre" required>
@@ -245,7 +245,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
-  <script src="../js/alerta.js"></script>
+  
   <script src="../js/menu.js"></script>
   <script src="../js/validacionCampos.js"></script>
 

@@ -13,14 +13,14 @@ body {
 }
 
 .menu-icono {
-    position: absolute; /* Posicionamos absolutamente */
+    position: absolute; 
     top: 10px;
     left: 10px;
     cursor: pointer;
     padding: 10px;
     background-color: var(--colorPrincipal);
     color: white;
-    z-index: 1000; /* Aseguramos que esté por encima del menú lateral */
+    z-index: 1000; 
     position: fixed;
     border-radius: 8px;
 }
