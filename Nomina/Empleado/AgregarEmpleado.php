@@ -136,6 +136,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     <form class="row g-3 prueba needs-validation" novalidate id="formulario" action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
+    <div>
+        <input type="file" name="imagen" id="fileInput">
+      </div>
       <div class="col-md-6">
         <label class="form-label">Nombre: <span style="color: red;">*</span></label>
         <input type="texto" name="textNombre" class="form-control" id="inputNombre" required>
