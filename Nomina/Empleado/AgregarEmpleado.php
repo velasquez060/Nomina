@@ -26,6 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $contactoEmergencia = htmlspecialchars(ucwords($_POST['textContacto']));
   $numeroContactoEmergencia = htmlspecialchars($_POST['textNumeroContacto']);
 
+  //metodo para subir foto del empleado
+  $imagen = $_FILES["imagen"]["name"];
+  $imagen_tmp = $_FILES["imagen"]["tmp_name"];
+  $ruta_imagen = '../fotos/' . $imagen;
+  move_uploaded_file($imagen_tmp, $ruta_imagen);
+
+  
+
 
   $archivo = $_FILES["archivo"]["name"];
   $archivo_temp = $_FILES["archivo"]["tmp_name"];
@@ -45,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       
 
-      $sql = "INSERT INTO empleado (nombre, apellido, cedula, fechaNacimiento, celular, direccion, correo, estadoCivil, eps, arl, fondoPensiones, fondoCesantias, entidadBancaria, numeroCuenta, fechaIngreso, fechaTerminacion, contactoEmergencia, numeroContactoEmergencia, archivo) VALUES (:nombre, :apellido, :cedula, :fechaNacimiento, :celular, :direccion, :correo, :estadoCivil, :eps, :arl, :fondoPensiones, :fondoCesantias, :entidadBancaria, :numeroCuenta, :fechaIngreso, :fechaTerminacion, :contactoEmergencia, :numeroContactoEmergencia, :archivo)";
+      $sql = "INSERT INTO empleado (nombre, apellido, cedula, fechaNacimiento, celular, direccion, correo, estadoCivil, eps, arl, fondoPensiones, fondoCesantias, entidadBancaria, numeroCuenta, fechaIngreso, fechaTerminacion, contactoEmergencia, numeroContactoEmergencia, archivo, fotoempleado) VALUES (:nombre, :apellido, :cedula, :fechaNacimiento, :celular, :direccion, :correo, :estadoCivil, :eps, :arl, :fondoPensiones, :fondoCesantias, :entidadBancaria, :numeroCuenta, :fechaIngreso, :fechaTerminacion, :contactoEmergencia, :numeroContactoEmergencia, :archivo, :fotoempleado)";
 
       $stmt = $objconexion->prepare($sql);
 
@@ -67,7 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stmt->bindParam(':fechaTerminacion', $fechaTerminacion);
       $stmt->bindParam(':contactoEmergencia', $contactoEmergencia);
       $stmt->bindParam(':numeroContactoEmergencia', $numeroContactoEmergencia);
+  $stmt->bindParam(':numeroContactoEmergencia', $numeroContactoEmergencia);
       $stmt->bindParam(':archivo', $ruta_archivo);
+  $stmt->bindParam(':fotoempleado', $ruta_imagen);
 
 
       
@@ -103,22 +113,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../Css/empleado.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="sweetalert2/dist/sweetalert2.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../Css/menu.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <title>Document</title>
 
 </head>
 
 <body>
-
-  <H1 class="tituloempleado">FICHA EMPLEADO</H1>
-  <br>
-  <br>
-  <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
-  <br>
-  <br>
+<div class="titulo">
+<H1 class="tituloempleado">FICHA EMPLEADO</H1>
+<br>
+<div class="contenedorfoto">
+    <div class="circle-container" id="preview"></div>
+    
+  </div>
+</div>
+  
   <div class="container col-md-8">
 
 
@@ -229,6 +242,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+  
   <script src="../js/menu.js"></script>
   <script src="../js/validacionCampos.js"></script>
 

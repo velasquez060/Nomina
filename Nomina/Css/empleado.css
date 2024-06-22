@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Noto+Serif:ital@1&family=Pangolin&family=Pathway+Extreme:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Poppins:wght@200;400&display=swap');
-*{
+
+* {
     box-sizing: border-box;
     margin: 0px 0px 10px;
     padding: 0;
 }
 
 
-p{
+p {
     display: flex;
     justify-content: center;
     text-align: center;
@@ -15,7 +16,7 @@ p{
     font-optical-sizing: auto;
     font-weight: 400px;
     font-style: normal;
-    font-variation-settings:"wdth" 100;
+    font-variation-settings: "wdth" 100;
 }
 
 
@@ -29,18 +30,18 @@ p{
     font-optical-sizing: auto;
     font-weight: 400px;
     font-style: normal;
-    font-variation-settings:"wdth" 100;
+    font-variation-settings: "wdth" 100;
 }
 
 
-.prueba label{
+.prueba label {
     font-family: "Pathway Extreme", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400px;
     font-style: normal;
-    font-variation-settings:"wdth" 200;
-    font-weight: 500;  
-    
+    font-variation-settings: "wdth" 200;
+    font-weight: 500;
+
 }
 
 .registrar {
@@ -50,17 +51,60 @@ p{
 }
 
 .was-validated .form-control:valid {
-    border-color: #28a745; /* Verde */
-    }
+    border-color: #28a745;
+    /* Verde */
+}
+
 .was-validated .form-control:invalid {
-    border-color: #dc3545; /* Rojo */
-    }
-.was-validated .form-control:invalid ~ .invalid-feedback {
-    display: block; /* Muestra el mensaje de error */
-    }
+    border-color: #dc3545;
+    /* Rojo */
+}
+
+.was-validated .form-control:invalid~.invalid-feedback {
+    display: block;
+    /* Muestra el mensaje de error */
+}
 
 
+.contenedorfoto {
+    position: relative;
+    margin-left: 650px;
+}
 
-
+#fileInput {
+    width: 300px;  
+    height: 30px; 
+    padding: 5px; 
+    font-size: 14px;  
+    position: relative;
+    margin-left: 350px;
+  }
 
   
+
+  .circle-container {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ddd;
+    position: relative;
+    
+  }
+  
+  .circle-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    margin-left: 20px;
+  }
+  
+  .foto{
+    
+    position: relative;
+    margin-left: 480px;
+  }
