@@ -3,11 +3,11 @@
 require('../conexion/conexion.php');
 include('../Menu.php');
 
-
+$objconexion = new conexion();
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $nombre = htmlspecialchars(ucwords($_POST['textNombre'])); 
+  $nombre = htmlspecialchars(ucwords($_POST['textNombre']));
   $apellido = htmlspecialchars(ucwords($_POST['textApellido']));
   $cedula = htmlspecialchars($_POST['textCedula']);
   $fechaNacimiento = htmlspecialchars($_POST['textFechaNacimiento']);
@@ -32,66 +32,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $ruta_archivo = '../archivosPdf/' . $archivo;
   move_uploaded_file($archivo_temp, $ruta_archivo);
 
+
   if (
     !empty($nombre) && !empty($apellido) && !empty($cedula) && !empty($fechaNacimiento) &&
-    !empty($celular) && !empty($direccion) && !empty($correo) && !empty($estadoCivil) && !empty($fechaIngreso) && !empty($contactoEmergencia) && !empty($numeroContactoEmergencia) 
+    !empty($celular) && !empty($direccion) && !empty($correo) && !empty($estadoCivil) && !empty($fechaIngreso) && !empty($contactoEmergencia) && !empty($numeroContactoEmergencia)
 
-  
-    
-) {
 
-  try {
 
-    $sql = "INSERT INTO empleado (nombre, apellido, cedula, fechaNacimiento, celular, direccion, correo, estadoCivil, eps, arl, fondoPensiones, fondoCesantias, entidadBancaria, numeroCuenta, fechaIngreso, fechaTerminacion, contactoEmergencia, numeroContactoEmergencia, archivo) VALUES (:nombre, :apellido, :cedula, :fechaNacimiento, :celular, :direccion, :correo, :estadoCivil, :eps, :arl, :fondoPensiones, :fondoCesantias, :entidadBancaria, :numeroCuenta, :fechaIngreso, :fechaTerminacion, :contactoEmergencia, :numeroContactoEmergencia, :archivo)";
-  
-  $stmt = $conexion->prepare($sql);
-  
-  $stmt->bindParam(':nombre', $nombre);
-  $stmt->bindParam(':apellido', $apellido);
-  $stmt->bindParam(':cedula', $cedula);
-  $stmt->bindParam(':fechaNacimiento', $fechaNacimiento);
-  $stmt->bindParam(':celular', $celular);
-  $stmt->bindParam(':direccion', $direccion);
-  $stmt->bindParam(':correo', $correo);
-  $stmt->bindParam(':estadoCivil', $estadoCivil);
-  $stmt->bindParam(':eps', $eps);
-  $stmt->bindParam(':arl', $arl);
-  $stmt->bindParam(':fondoPensiones', $fondoPensiones);
-  $stmt->bindParam(':fondoCesantias', $fondoCesantias);
-  $stmt->bindParam(':entidadBancaria', $entidadBancaria);
-  $stmt->bindParam(':numeroCuenta', $numeroCuenta);
-  $stmt->bindParam(':fechaIngreso', $fechaIngreso);
-  $stmt->bindParam(':fechaTerminacion', $fechaTerminacion);
-  $stmt->bindParam(':contactoEmergencia', $contactoEmergencia);
-  $stmt->bindParam(':numeroContactoEmergencia', $numeroContactoEmergencia);
-  $stmt->bindParam(':archivo', $ruta_archivo);
+  ) {
 
-  
-  
-  
-  
-      $stmt->execute();
-  
-  
-      if ($stmt->rowCount() > 0) {
+    try {
+
+      
+
+      $sql = "INSERT INTO empleado (nombre, apellido, cedula, fechaNacimiento, celular, direccion, correo, estadoCivil, eps, arl, fondoPensiones, fondoCesantias, entidadBancaria, numeroCuenta, fechaIngreso, fechaTerminacion, contactoEmergencia, numeroContactoEmergencia, archivo) VALUES (:nombre, :apellido, :cedula, :fechaNacimiento, :celular, :direccion, :correo, :estadoCivil, :eps, :arl, :fondoPensiones, :fondoCesantias, :entidadBancaria, :numeroCuenta, :fechaIngreso, :fechaTerminacion, :contactoEmergencia, :numeroContactoEmergencia, :archivo)";
+
+      $stmt = $objconexion->prepare($sql);
+
+      $stmt->bindParam(':nombre', $nombre);
+      $stmt->bindParam(':apellido', $apellido);
+      $stmt->bindParam(':cedula', $cedula);
+      $stmt->bindParam(':fechaNacimiento', $fechaNacimiento);
+      $stmt->bindParam(':celular', $celular);
+      $stmt->bindParam(':direccion', $direccion);
+      $stmt->bindParam(':correo', $correo);
+      $stmt->bindParam(':estadoCivil', $estadoCivil);
+      $stmt->bindParam(':eps', $eps);
+      $stmt->bindParam(':arl', $arl);
+      $stmt->bindParam(':fondoPensiones', $fondoPensiones);
+      $stmt->bindParam(':fondoCesantias', $fondoCesantias);
+      $stmt->bindParam(':entidadBancaria', $entidadBancaria);
+      $stmt->bindParam(':numeroCuenta', $numeroCuenta);
+      $stmt->bindParam(':fechaIngreso', $fechaIngreso);
+      $stmt->bindParam(':fechaTerminacion', $fechaTerminacion);
+      $stmt->bindParam(':contactoEmergencia', $contactoEmergencia);
+      $stmt->bindParam(':numeroContactoEmergencia', $numeroContactoEmergencia);
+      $stmt->bindParam(':archivo', $ruta_archivo);
+
+
+      
+      if ($stmt->execute()) {
         echo "<script> alert ('Usuario Agregado Correctamente');</script>";
-
-        header("Location: AgregarEmpleado.php");
-        
-      }
+        header("Location: ListaEmpleados.php");
+    } else {
+        echo "Error al agregar empleado.";
+    }
     
-  } catch (Exception $e) {
-    echo $e->getMessage();
-  }finally{
-    
-    $stmt->close();
-    $conexion->close();
 
+    
+    } catch (Exception $e) {
+      echo $e->getMessage();
+    } finally {
+
+      
+    }
+  } else {
+    echo "<script>alert('por favor rellene todos los campos');</script>";
   }
-    
-} else {
-  echo "<script>alert('por favor rellene todos los campos');</script>";
-}
 } else {
   //echo "No se recibieron datos del formulario.";
 
@@ -124,7 +121,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <br>
   <div class="container col-md-8">
 
-    <form class="row g-3 pureba needs-validation" novalidate id="formulario"  action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
+
+    <form class="row g-3 prueba needs-validation" novalidate id="formulario" action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
       <div class="col-md-6">
         <label class="form-label">Nombre: <span style="color: red;">*</span></label>
         <input type="texto" name="textNombre" class="form-control" id="inputNombre" required>
@@ -148,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Celular: <span style="color: red;">*</span></label>
-        <input type="text" name="textCelular" class="form-control" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')" required >
+        <input type="text" name="textCelular" class="form-control" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')" required>
         <div class="invalid-feedback">Por favor ingrese el Número de Celular.</div>
         <p id="mensajeError_2"></p>
       </div>
@@ -207,7 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="invalid-feedback">Por favor ingrese el Nombre de contacto.</div>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Número Contacto de Emergencia:<span style="color: red;">*</span> </label> 
+        <label class="form-label">Número Contacto de Emergencia:<span style="color: red;">*</span> </label>
         <input type="text" name="textNumeroContacto" class="form-control" id="numeroEntero_4" oninput="validarNumeroEntero('numeroEntero_4')" required>
         <div class="invalid-feedback">Por favor ingrese el Número de contacto.</div>
         <p id="mensajeError_4"></p>
@@ -215,26 +213,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
       <div class="col-12">
-        
+
         <br>
-        
-        <input class="form-control" type ="file" name="archivo" id="">
+
+        <input class="form-control" type="file" name="archivo" id="">
         <br>
         <br>
-        <button type="submit" class="btn btn-primary" value="Registrar"  name="registrar" id="registrar" onclick="prueba">Registrar</button>
+        <button type="submit" class="btn btn-primary" value="Registrar" name="registrar" id="registrar" onclick="prueba">Registrar</button>
       </div>
-      
-    
+
+
     </form>
-    </div>
-    <div id="alerta" class="alert"></div>
+  </div>
+  <div id="alerta" class="alert"></div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
   <script src="../js/menu.js"></script>
   <script src="../js/validacionCampos.js"></script>
 
-  
+
 </body>
 
 </html>
