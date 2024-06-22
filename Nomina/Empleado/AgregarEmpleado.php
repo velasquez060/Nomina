@@ -139,6 +139,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div>
         <input type="file" name="imagen" id="fileInput">
       </div>
+      <br>
+  <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
+  <br>
       <div class="col-md-6">
         <label class="form-label">Nombre: <span style="color: red;">*</span></label>
         <input type="texto" name="textNombre" class="form-control" id="inputNombre" required>
