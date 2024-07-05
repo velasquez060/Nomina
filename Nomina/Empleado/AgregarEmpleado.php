@@ -5,7 +5,6 @@ include('../Menu.php');
 
 $objconexion = new conexion();
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $nombre = htmlspecialchars(ucwords($_POST['textNombre']));
   $apellido = htmlspecialchars(ucwords($_POST['textApellido']));
@@ -26,85 +25,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $contactoEmergencia = htmlspecialchars(ucwords($_POST['textContacto']));
   $numeroContactoEmergencia = htmlspecialchars($_POST['textNumeroContacto']);
 
-  //metodo para subir foto del empleado
+  // Método para subir foto del empleado
   $imagen = $_FILES["imagen"]["name"];
   $imagen_tmp = $_FILES["imagen"]["tmp_name"];
   $ruta_imagen = '../fotos/' . $imagen;
   move_uploaded_file($imagen_tmp, $ruta_imagen);
-
-  
-
 
   $archivo = $_FILES["archivo"]["name"];
   $archivo_temp = $_FILES["archivo"]["tmp_name"];
   $ruta_archivo = '../archivosPdf/' . $archivo;
   move_uploaded_file($archivo_temp, $ruta_archivo);
 
-
   if (
     !empty($nombre) && !empty($apellido) && !empty($cedula) && !empty($fechaNacimiento) &&
     !empty($celular) && !empty($direccion) && !empty($correo) && !empty($estadoCivil) && !empty($fechaIngreso) && !empty($contactoEmergencia) && !empty($numeroContactoEmergencia)
-
-
-
   ) {
-
     try {
+      // Verificar si la cédula ya existe
+      $sql_verificar = "SELECT COUNT(*) as count FROM empleado WHERE cedula = :cedula";
+      $stmt_verificar = $objconexion->prepare($sql_verificar);
+      $stmt_verificar->bindParam(':cedula', $cedula);
+      $stmt_verificar->execute();
+      $row_verificar = $stmt_verificar->fetch(PDO::FETCH_ASSOC);
 
-      
+      if ($row_verificar['count'] > 0) {
+        echo "<script>alert('El número de cédula ya existe.');</script>";
+      } else {
+        // Insertar nuevo registro
+        $sql = "INSERT INTO empleado (nombre, apellido, cedula, fechaNacimiento, celular, direccion, correo, estadoCivil, eps, arl, fondoPensiones, fondoCesantias, entidadBancaria, numeroCuenta, fechaIngreso, fechaTerminacion, contactoEmergencia, numeroContactoEmergencia, archivo, fotoempleado) VALUES (:nombre, :apellido, :cedula, :fechaNacimiento, :celular, :direccion, :correo, :estadoCivil, :eps, :arl, :fondoPensiones, :fondoCesantias, :entidadBancaria, :numeroCuenta, :fechaIngreso, :fechaTerminacion, :contactoEmergencia, :numeroContactoEmergencia, :archivo, :fotoempleado)";
 
-      $sql = "INSERT INTO empleado (nombre, apellido, cedula, fechaNacimiento, celular, direccion, correo, estadoCivil, eps, arl, fondoPensiones, fondoCesantias, entidadBancaria, numeroCuenta, fechaIngreso, fechaTerminacion, contactoEmergencia, numeroContactoEmergencia, archivo, fotoempleado) VALUES (:nombre, :apellido, :cedula, :fechaNacimiento, :celular, :direccion, :correo, :estadoCivil, :eps, :arl, :fondoPensiones, :fondoCesantias, :entidadBancaria, :numeroCuenta, :fechaIngreso, :fechaTerminacion, :contactoEmergencia, :numeroContactoEmergencia, :archivo, :fotoempleado)";
+        $stmt = $objconexion->prepare($sql);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':apellido', $apellido);
+        $stmt->bindParam(':cedula', $cedula);
+        $stmt->bindParam(':fechaNacimiento', $fechaNacimiento);
+        $stmt->bindParam(':celular', $celular);
+        $stmt->bindParam(':direccion', $direccion);
+        $stmt->bindParam(':correo', $correo);
+        $stmt->bindParam(':estadoCivil', $estadoCivil);
+        $stmt->bindParam(':eps', $eps);
+        $stmt->bindParam(':arl', $arl);
+        $stmt->bindParam(':fondoPensiones', $fondoPensiones);
+        $stmt->bindParam(':fondoCesantias', $fondoCesantias);
+        $stmt->bindParam(':entidadBancaria', $entidadBancaria);
+        $stmt->bindParam(':numeroCuenta', $numeroCuenta);
+        $stmt->bindParam(':fechaIngreso', $fechaIngreso);
+        $stmt->bindParam(':fechaTerminacion', $fechaTerminacion);
+        $stmt->bindParam(':contactoEmergencia', $contactoEmergencia);
+        $stmt->bindParam(':numeroContactoEmergencia', $numeroContactoEmergencia);
+        $stmt->bindParam(':archivo', $ruta_archivo);
+        $stmt->bindParam(':fotoempleado', $ruta_imagen);
 
-      $stmt = $objconexion->prepare($sql);
-
-      $stmt->bindParam(':nombre', $nombre);
-      $stmt->bindParam(':apellido', $apellido);
-      $stmt->bindParam(':cedula', $cedula);
-      $stmt->bindParam(':fechaNacimiento', $fechaNacimiento);
-      $stmt->bindParam(':celular', $celular);
-      $stmt->bindParam(':direccion', $direccion);
-      $stmt->bindParam(':correo', $correo);
-      $stmt->bindParam(':estadoCivil', $estadoCivil);
-      $stmt->bindParam(':eps', $eps);
-      $stmt->bindParam(':arl', $arl);
-      $stmt->bindParam(':fondoPensiones', $fondoPensiones);
-      $stmt->bindParam(':fondoCesantias', $fondoCesantias);
-      $stmt->bindParam(':entidadBancaria', $entidadBancaria);
-      $stmt->bindParam(':numeroCuenta', $numeroCuenta);
-      $stmt->bindParam(':fechaIngreso', $fechaIngreso);
-      $stmt->bindParam(':fechaTerminacion', $fechaTerminacion);
-      $stmt->bindParam(':contactoEmergencia', $contactoEmergencia);
-      $stmt->bindParam(':numeroContactoEmergencia', $numeroContactoEmergencia);
-  $stmt->bindParam(':numeroContactoEmergencia', $numeroContactoEmergencia);
-      $stmt->bindParam(':archivo', $ruta_archivo);
-  $stmt->bindParam(':fotoempleado', $ruta_imagen);
-
-
-      
-      if ($stmt->execute()) {
-        echo "<script> alert ('Usuario Agregado Correctamente');</script>";
-        header("Location: ListaEmpleados.php");
-    } else {
-        echo "Error al agregar empleado.";
-    }
-    
-
-    
+        if ($stmt->execute()) {
+          echo "<script>alert('Usuario Agregado Correctamente');</script>";
+          header("Location: ListaEmpleados.php");
+        } else {
+          echo "Error al agregar empleado.";
+        }
+      }
     } catch (Exception $e) {
       echo $e->getMessage();
     } finally {
-
-      
+      $stmt_verificar = null;
+      $stmt = null;
+      $objconexion = null;
     }
   } else {
-    echo "<script>alert('por favor rellene todos los campos');</script>";
+    echo "<script>alert('Por favor rellene todos los campos');</script>";
   }
 } else {
   //echo "No se recibieron datos del formulario.";
-
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -123,25 +116,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-<div class="titulo">
-<H1 class="tituloempleado">FICHA EMPLEADO</H1>
-<br>
-<div class="contenedorfoto">
-    <div class="circle-container" id="preview"></div>
-    
+  <div class="titulo">
+    <H1 class="tituloempleado">FICHA EMPLEADO</H1>
+    <br>
+    <div class="contenedorfoto">
+      <div class="circle-container" id="preview"></div>
+
+    </div>
   </div>
-</div>
-  
+
   <div class="container col-md-8">
 
 
     <form class="row g-3 prueba needs-validation" novalidate id="formulario" action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
-    <div>
+      <div>
         <input type="file" name="imagen" id="fileInput">
       </div>
-      
-  <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
-  
+
+      <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
+
       <div class="col-md-6">
         <label class="form-label">Nombre: <span style="color: red;">*</span></label>
         <input type="texto" name="textNombre" class="form-control" id="inputNombre" required>
@@ -249,7 +242,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
-  
+
   <script src="../js/menu.js"></script>
   <script src="../js/validacionCampos.js"></script>
 

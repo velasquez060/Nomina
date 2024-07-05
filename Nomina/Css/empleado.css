@@ -7,6 +7,7 @@
 }
 
 
+
 p {
     display: flex;
     justify-content: center;
@@ -17,7 +18,9 @@ p {
     font-weight: 400px;
     font-style: normal;
     font-variation-settings: "wdth" 100;
+
 }
+
 
 
 
@@ -68,7 +71,7 @@ p {
 
 .contenedorfoto {
     position: relative;
-    margin-left: 650px;
+    margin-left: 580px;
 }
 
 #fileInput {
@@ -78,11 +81,11 @@ p {
     font-size: 14px;  
     position: relative;
     margin-left: 350px;
-  }
+}
 
-  
 
-  .circle-container {
+
+.circle-container {
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -93,18 +96,34 @@ p {
     border: 2px solid #ddd;
     position: relative;
     
-  }
-  
-  .circle-container img {
+}
+
+.circle-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     position: relative;
-    margin-left: 20px;
-  }
-  
-  .foto{
+    
+}
+
+.foto{
     
     position: relative;
     margin-left: 480px;
-  }
+}
+
+.fas {
+    width: 100%;
+    height: 700%;
+}
+
+
+
+.centered-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.center{
+    text-align: center;
+}
