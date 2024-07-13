@@ -31,10 +31,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $ruta_imagen = '../fotos/' . $imagen;
   move_uploaded_file($imagen_tmp, $ruta_imagen);
 
-  $archivo = $_FILES["archivo"]["name"];
-  $archivo_temp = $_FILES["archivo"]["tmp_name"];
-  $ruta_archivo = '../archivosPdf/' . $archivo;
-  move_uploaded_file($archivo_temp, $ruta_archivo);
+  if (isset($_FILES["archivo"]) && $_FILES["archivo"]["error"] == UPLOAD_ERR_OK) {
+    $archivo = $_FILES["archivo"]["name"];
+    $archivo_temp = $_FILES["archivo"]["tmp_name"];
+    $ruta_archivo = '../archivosPdf/' . $archivo;
+
+    if (move_uploaded_file($archivo_temp, $ruta_archivo)) {
+      // Código para mostrar el archivo en la interfaz
+      $proyecto['archivo'] = $ruta_archivo;
+    } else {
+      // Manejar el error si el archivo no se puede mover
+      $proyecto['archivo'] = '';
+    }
+  } else {
+    // Si no se carga un archivo, asegúrate de que la variable esté vacía
+    $proyecto['archivo'] = '';
+  }
 
   if (
     !empty($nombre) && !empty($apellido) && !empty($cedula) && !empty($fechaNacimiento) &&
@@ -99,6 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -141,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="invalid-feedback">Por favor ingrese Nombre.</div>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Apellido: <span style="color: red;">*</span></label>
+        <label class="form-label">Apellidos: <span style="color: red;">*</span></label>
         <input type="text" name="textApellido" class="form-control" id="inputApellido" required>
         <div class="invalid-feedback">Por favor ingrese Apellido.</div>
       </div>
@@ -199,7 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Número de Cuenta:</label>
-        <input type="text" name="textNumeroCuenta" class="form-control" id="numeroEntero_3" oninput="validarNumeroEntero('numeroEntero_3')">
+        <input type="text" name="textNumeroCuenta" class="form-control" id="numeroEntero_3">
         <p id="mensajeError_3"></p>
       </div>
       <div class="col-md-6">
@@ -239,6 +252,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
   <div id="alerta" class="alert"></div>
   </div>
+  
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 

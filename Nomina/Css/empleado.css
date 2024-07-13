@@ -7,7 +7,6 @@
 }
 
 
-
 p {
     display: flex;
     justify-content: center;
@@ -28,7 +27,7 @@ p {
     display: flex;
     justify-content: center;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 10px;
     font-family: "Pathway Extreme", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400px;
@@ -119,11 +118,4 @@ p {
 
 
 
-.centered-cell {
-    text-align: center;
-    vertical-align: middle;
-}
 
-.center{
-    text-align: center;
-}
