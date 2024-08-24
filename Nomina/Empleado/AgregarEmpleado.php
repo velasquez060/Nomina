@@ -143,7 +143,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <form class="row g-3 prueba needs-validation" novalidate id="formulario" action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
       <div>
-        <input type="file" name="imagen" id="fileInput">
+        
+    <button class="file-button" id="file-button" name="imagen" title="Editar Foto"><img src="../iconos/editarFoto.png" alt=""></button>
+    <input type="file" id="file-upload" class="hidden-file-input" name="imagen">
+        
       </div>
 
       <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>

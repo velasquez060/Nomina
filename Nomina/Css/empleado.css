@@ -54,17 +54,17 @@ p {
 
 .was-validated .form-control:valid {
     border-color: #28a745;
-    /* Verde */
+    
 }
 
 .was-validated .form-control:invalid {
     border-color: #dc3545;
-    /* Rojo */
+    
 }
 
 .was-validated .form-control:invalid~.invalid-feedback {
     display: block;
-    /* Muestra el mensaje de error */
+    
 }
 
 
@@ -115,6 +115,42 @@ p {
     width: 100%;
     height: 700%;
 }
+
+ .hidden-file-input {
+    display: none;
+}
+
+
+.file-button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    position: absolute;
+    margin-top: -70px;
+    margin-left: 450px;
+    background-color: transparent !important;;
+}
+
+.buttons{
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+}
+
+.cancelar{
+    position: absolute;
+    margin-top: 0px;
+    margin-left: 5px;
+
+}
+
+
+
+
+
 
 
 

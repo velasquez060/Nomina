@@ -225,8 +225,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <input class="form-control" type="file" name="archivo" id="" >
         <br>
+
+        <div class="buttons col-3">
         <button type="submit" class="btn btn-primary" value="Actualizar" name="actualizar" id="actualizar">Actualizar</button>
-        <a href="ListaEmpleados.php" type="submit" class="btn btn-danger" value="Cancelar" name="cancelar" id="cancelar">Cancelar</a>
+        <a href="ListaEmpleados.php" type="submit" class="btn btn-danger cancelar" value="Cancelar" name="cancelar" id="cancelar">Cancelar</a> 
+        </div>
         
         
       </div>
