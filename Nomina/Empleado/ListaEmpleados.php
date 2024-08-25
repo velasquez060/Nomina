@@ -4,31 +4,29 @@ require('../conexion/conexion.php');
 $objConexion = new conexion();
 $resultado = $objConexion->consultar("SELECT * FROM empleado");
 
-if ($_GET) {
-    if (isset($_GET['borrar'])) {
-        $id = $_GET['borrar'];
-        $objConexion = new conexion();
-        $sql = "DELETE FROM empleado WHERE id_Usuario = $id";
-        $objConexion->ejecutar($sql);
-        //$mensaje = "Registro eliminado";
-        header("Location: ListaEmpleados.php");
-        exit();
-    }
+
+if (isset($_GET['borrar'])) {
+    $id = $_GET['borrar'];
+    $objConexion = new conexion();
+    $sql = "DELETE FROM empleado WHERE id_Usuario = $id";
+    $objConexion->ejecutar($sql);
+    echo "<script>
+    
+    setTimeout(function() {
+        window.location.href = 'ListaEmpleados.php';
+    }, 1000); // 1000 milisegundos = 1 segundos
+
+    alert('Este es un mensaje de alerta.');
+
+</script>";
 }
+
+
+include('../Menu.php');
+
+
 ?>
-<?php include('../Menu.php'); ?>
-<?php if (isset($_GET['mensaje'])) { ?>
-    <script>
-        window.onload = function() {
-            Swal.fire({
-                icon: "success",
 
-                title: "Registro eliminado",
-
-            });
-        };
-    </script>
-<?php } ?>
 
 <!doctype html>
 <html lang="es">
@@ -52,7 +50,7 @@ if ($_GET) {
 <body>
     <h1 class="tituloempleado">Lista de empleados</h1>
     <br>
-    <div class="container col-md-8">
+    <div class="container col-md-9">
         <table class="table-responsive-sm" id="tabla_id">
             <thead>
                 <tr>
@@ -69,7 +67,7 @@ if ($_GET) {
                 <?php foreach ($resultado as $empleado) {
                     $imagen = $empleado['fotoempleado'];
                     if (empty($imagen)) {
-                        $imagen = '../fotos/defectos.png';
+                        $imagen = '../iconos/defectos.png';
                     }
                 ?>
                     <tr>
@@ -90,17 +88,19 @@ if ($_GET) {
                             <?php endif; ?>
                         </td>
                         <td>
-                    
-                            <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#employeeModal<?php echo htmlspecialchars($empleado['id_Usuario']); ?>"><i class="far fa-eye fa-lg"></i></a>
 
-                            
+                            <a class="btn" title="Visualizar" data-bs-toggle="modal" data-bs-target="#employeeModal<?php echo htmlspecialchars($empleado['id_Usuario']); ?>"><img src="../iconos/visualizar.png"></a>
+
+
                             <input type="hidden" name="id_Usuario" value="<?php echo htmlspecialchars($empleado['id_Usuario']); ?>">
 
-                          
-                            <a class="btn btn-primary" href="ActualizarEmpleado.php?id=<?php echo htmlspecialchars($empleado['id_Usuario']); ?>" role="button"><i class="fas fa-pencil-alt fa-lg"></i></a>
 
-                
-                            <a class="btn btn-danger" href="javascript:borrar(<?php echo htmlspecialchars($empleado['id_Usuario']); ?>);" role="button"><i class="far fa-trash-alt fa-lg"></i></a>
+                            <a class="btn" title="Actualizar" href="ActualizarEmpleado.php?id=<?php echo htmlspecialchars($empleado['id_Usuario']); ?>" role="button"><img src="../iconos/actualizar.jpeg"></a>
+
+                            <a class="btn" title="Nómina" href="../Empleado/nomina.php"><img src="../iconos/novedades.png"></a>
+
+
+                            <a class="btn" title="Eliminar" href="javascript:borrar(<?php echo htmlspecialchars($empleado['id_Usuario']); ?>);" role="button"><img src="../iconos/delete.png"></a>
                         </td>
                     </tr>
                 <?php } ?>
