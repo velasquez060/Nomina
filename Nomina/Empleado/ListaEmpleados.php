@@ -10,15 +10,8 @@ if (isset($_GET['borrar'])) {
     $objConexion = new conexion();
     $sql = "DELETE FROM empleado WHERE id_Usuario = $id";
     $objConexion->ejecutar($sql);
-    echo "<script>
-    
-    setTimeout(function() {
-        window.location.href = 'ListaEmpleados.php';
-    }, 1000); // 1000 milisegundos = 1 segundos
-
-    alert('Este es un mensaje de alerta.');
-
-</script>";
+    header("location: ListaEmpleados.php");
+    exit();
 }
 
 
@@ -188,16 +181,22 @@ include('../Menu.php');
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/fontawesome.js" integrity="sha384-dPBGbj4Uoy1OOpM4+aRGfAOc0W37JkROT+3uynUgTHZCHZNMHfGXsmmvYTffZjYO" crossorigin="anonymous"></script>
     <script>
         function borrar(id_Usuario) {
+    Swal.fire({
+        title: "¿Desea borrar el registro?",
+        showCancelButton: true,
+        confirmButtonText: "Si, Borrar"
+    }).then((result) => {
+        if (result.isConfirmed) {
             Swal.fire({
-                title: "¿Desea borrar el registro?",
-                showCancelButton: true,
-                confirmButtonText: "Si, Borrar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location = "ListaEmpleados.php?borrar=" + id_Usuario;
-                }
+                title: "¡Eliminado!",
+                text: "El registro ha sido borrado.",
+                icon: "success"
+            }).then(() => {
+                window.location = "ListaEmpleados.php?borrar=" + id_Usuario;
             });
         }
+    });
+}
     </script>
     <script>
         $(document).ready(function() {
