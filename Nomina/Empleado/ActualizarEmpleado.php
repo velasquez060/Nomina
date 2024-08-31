@@ -1,6 +1,6 @@
 <?php
 require('../conexion/conexion.php');
-//include('../Menu.php');
+include('../Menu.php');
 
 $IdUsuario = $_POST['id_Usuario'] ?? $_GET['id'] ?? null;
 
@@ -118,16 +118,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <H1 class="tituloempleado">Actualización Ficha Empleado</H1>
     <br>
     <div class="contenedorfoto">
-      <div class="circle-container" id="preview"></div>
-      
+      <div class=" col-md-3 circle-container" id="preview"></div>
     </div>
   </div>
 
   <div class="container col-md-8">
     <form class="row g-3 needs-validation" novalidate id="formulario" action="ActualizarEmpleado.php" method="POST" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
-      <div>
-        <input type="file" name="imagen" id="fileInput">
-      </div>
+    <div>  
+    <button type="button" class="md-3 file-button" id="file-button" name="imagen" title="Editar Foto"><img src="../iconos/editarFoto.png" alt=""></button>
+    <input type="file" id="file-upload" class="hidden-file-input" name="imagen">  
+    </div>
       <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
 
       <div class="col-md-6">
