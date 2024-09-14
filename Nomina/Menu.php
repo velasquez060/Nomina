@@ -23,7 +23,7 @@
             <li><a href="inicial.php">Inicio</a></li>
             <li><a href="AgregarEmpleado.php">Agregar Empleado</a></li>
             <li><a href="ListaEmpleados.php">Lista Empleados</a></li>
-            <li><a href="#">Ajustes Nomina</a></li>
+            <li><a href="AjustesNomina.php">Ajustes Nomina</a></li>
             <li><a href="#">Cerrar Sesión</a></li>
         </ul>
     </nav>
