@@ -21,8 +21,8 @@ body {
     background-color: var(--colorPrincipal);
     color: white;
     z-index: 1000; 
-    position: fixed;
     border-radius: 8px;
+    /* transition: 300ms ease-in-out; */
 }
 
 .barra {
@@ -40,9 +40,9 @@ body {
     height: 100%;
     background-color: #333;
     padding-top: 90px;
-    transition: left 0.3s ease; /* Agregar la transición */
     z-index: 900;
     background-color: var(--colorPrincipal);
+    transition: 300ms ease-in-out;
 }
 
 

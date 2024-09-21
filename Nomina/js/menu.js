@@ -1,7 +1,33 @@
+// function toggleMenu() {
+//     const menuLateral = document.querySelector('.menu-lateral');
+
+//     menuLateral.style.left = (menuLateral.style.left === '0px') ? '-250px' : '0px';
+// }
 function toggleMenu() {
     const menuLateral = document.querySelector('.menu-lateral');
 
-    menuLateral.style.left = (menuLateral.style.left === '0px') ? '-250px' : '0px';
+    if (menuLateral.style.left === '0px') {
+        menuLateral.style.left = '-250px';
+        
+        document.removeEventListener('click', cerrarMenuAlHacerClickAfuera);
+    } else {
+        menuLateral.style.left = '0px';
+       
+        setTimeout(() => {
+            document.addEventListener('click', cerrarMenuAlHacerClickAfuera);
+        }, 0); 
+    }
+}
+
+
+function cerrarMenuAlHacerClickAfuera(event) {
+    const menuLateral = document.querySelector('.menu-lateral');
+
+    if (!menuLateral.contains(event.target)) {
+        menuLateral.style.left = '-250px';
+
+        document.removeEventListener('click', cerrarMenuAlHacerClickAfuera);
+    }
 }
 
         function validarFormulario() {

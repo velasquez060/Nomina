@@ -129,7 +129,8 @@ if(!empty($salariobasico) && !empty($valorhora) && !empty($valorHoraExtraDiurna)
     </div>
     <div class="row">
       <div class="col-12 text-start">
-        <button type="submit" class="btn btn-primary add me-2">Guardar</button>
+      <button type="submit" class="btn btn-primary me-2">Recalcular</button>
+        <button type="submit" class="btn btn-primary me-2">Guardar</button>
         <a href="../Empleado/ListaEmpleados.php" class="btn btn-danger cancel">Cancelar</a>
       </div>
     </div>
