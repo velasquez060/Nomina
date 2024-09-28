@@ -4,7 +4,7 @@ require('../conexion/conexion.php');
 $objconexion = new conexion();
 
 
-$sql2= "select * from configuracion";
+$sql2 = "select * from configuracion";
 $stmt_verificar = $objconexion->prepare($sql2);
 $stmt_verificar->execute();
 $Consultatabla = $stmt_verificar->rowCount();
@@ -25,7 +25,7 @@ if ($Consultatabla >= 1) {
   $row_verificar = $stmt_verificar->fetch(PDO::FETCH_ASSOC);
 
 
-
+  $id_configuracion = isset($row_verificar['id_configuracion']) ? $row_verificar['id_configuracion'] : "";
   $salariobasico = isset($row_verificar['salario_basico']) ? $row_verificar['salario_basico'] : "";
   $valor_hora = isset($row_verificar['valor_hora']) ? $row_verificar['valor_hora'] : "";
   $valor_hora_extra_diurna = isset($row_verificar['valor_hora_extra_diurna']) ? $row_verificar['valor_hora_extra_diurna'] : "";
@@ -39,11 +39,7 @@ if ($Consultatabla >= 1) {
   $valor_salud = isset($row_verificar['valor_salud']) ? $row_verificar['valor_salud'] : "";
   $valor_pension = isset($row_verificar['valor_pension']) ? $row_verificar['valor_pension'] : "";
   $ajuste_porcentual = isset($row_verificar['ajuste_porcentual']) ? $row_verificar['ajuste_porcentual'] : "";
-
-
-
-  
-}else{
+} else {
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $salariobasico = htmlspecialchars($_POST["salarioBasico"]);
@@ -58,13 +54,13 @@ if ($Consultatabla >= 1) {
     $valorSalud = htmlspecialchars($_POST["valorSalud"]);
     $valorPension = htmlspecialchars($_POST["valorPension"]);
     $ajustePorcentual = htmlspecialchars($_POST["ajustePorcentual"]) ? $_POST['ajustePorcentual'] : null;
-  
-  
+
+
     if (!empty($salariobasico) && !empty($valorhora) && !empty($valorHoraExtraDiurna) && !empty($valorHoraExtraNocturna) && !empty($valorHoraExtraDominical) && !empty($valorHoraExtraDominicalNocturna) && !empty($valorHoraDomingosFestivos) && !empty($valorRecargoNocturno) && !empty($valorAuxilioTransporte) && !empty($valorSalud) && !empty($valorPension)) {
-  
+
       try {
         $sql = "INSERT INTO configuracion (salario_basico, valor_hora, valor_hora_extra_diurna, valor_hora_extra_nocturna, valor_hora_extra_dominical, valor_hora_extra_dominical_nocturna, valor_hora_domingos_festivos, valor_recargo_nocturno, valor_auxilio_transporte, valor_salud, valor_pension, ajuste_porcentual) VALUES (:salariobasico, :valorhora, :valorHoraExtraDiurna,:valorHoraExtraNocturna, :valorHoraExtraDominical, :valorHoraExtraDominicalNocturna, :valorHoraDomingosFestivos, :valorRecargoNocturno, :valorAuxilioTransporte, :valorSalud, :valorPension, :ajustePorcentual)";
-  
+
         $stmt = $objconexion->prepare($sql);
         $stmt->bindParam(':salariobasico', $salariobasico);
         $stmt->bindParam(':valorhora', $valorhora);
@@ -78,7 +74,7 @@ if ($Consultatabla >= 1) {
         $stmt->bindParam(':valorSalud', $valorSalud);
         $stmt->bindParam(':valorPension', $valorPension);
         $stmt->bindParam(':ajustePorcentual', $ajustePorcentual);
-  
+
         if ($stmt->execute()) {
           echo "<script>
           alert('Configuración Agregada Correctamente');
@@ -87,20 +83,41 @@ if ($Consultatabla >= 1) {
         } else {
           echo "Error al agregar Configuración.";
         }
-      
       } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
       }
     } else {
       echo "<script>alert('por favor rellenar todos los campos!!!!!');</script>";
     }
-  }else {
+  } else {
     //echo "No se recibieron datos del formulario.";
   }
-
 }
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
 
+  $id_configuracion = $_GET['id_configuracion'];
+  $ajustePorcentual = $_GET['ajustePorcentual'];
+  $reajusteSalarioBasico = $salariobasico = $_GET['salarioBasico'] * $ajustePorcentual;
+  $reajusteValorHora = $valorHora = $_GET['valorHora'] * $ajustePorcentual;
+  $reajusteValorHoraExtraDiurna = $valorHoraExtraDiurna = $_GET['valorHoraExtraDiurna'] * $ajustePorcentual;
+  $reajusteValorHoraExtraNocturna = $valorHoraExtraNocturna = $_GET['valorHoraExtraNocturna'] * $ajustePorcentual;
+  $reajusteValorHoraExtraDominical = $valorHoraExtraDominical = $_GET['valorHoraExtraDominical'] * $ajustePorcentual;
+  $reajusteValorHoraExtraDominicalNocturna = $valorHoraExtraDominicalNocturna = $_GET['valorHoraExtraDominicalNocturna'] * $ajustePorcentual;
+  $reajusteValorHoraDomingosFestivos = $valorHoraDomingosFestivos = $_GET['valorHoraDomingosFestivos'] * $ajustePorcentual;
+  $reajusteValorRecargoNocturno = $valorRecargoNocturno = $_GET['valorRecargoNocturno'] * $ajustePorcentual;
+  $reajustevalorAuxilioTransporte = $valorAuxilioTransporte = $_GET['valorAuxilioTransporte'] * $ajustePorcentual;
+  $reajustevalorSalud = $valorSalud = $_GET['valorSalud'] * $ajustePorcentual;
+  $reajusteValorPension = $valorPension = $_GET['valorPension'] * $ajustePorcentual;
 
+  $sqlreajuste = "UPDATE configuracion
+                  SET salario_basico = '$reajusteSalarioBasico', valor_hora = '$reajusteValorHora', valor_hora_extra_diurna = '$reajusteValorHoraExtraDiurna', 
+                  valor_hora_extra_nocturna = '$reajusteValorHoraExtraNocturna',valor_hora_extra_dominical = '$reajusteValorHoraExtraDominical', 
+                  valor_hora_extra_dominical_nocturna = '$reajusteValorHoraExtraDominicalNocturna',valor_hora_domingos_festivos = '$reajusteValorHoraDomingosFestivos', valor_recargo_nocturno = '$reajusteValorRecargoNocturno'
+                valor_auxilio_transporte = '$valorAuxilioTransporte', valor_salud = '$reajustevalorSalud', valor_pension = '$reajusteValorPension', ajuste_porcentual = '$ajustePorcentaul',
+                WHERE id_configuracion = $id_configuracion;";
+
+                
+}
 
 
 
@@ -140,6 +157,7 @@ if ($Consultatabla >= 1) {
           <label for="salarioBasico" class="form-label">Salario Basico:</label>
           <input type="text" name="salarioBasico" class="form-control" value="<?php echo htmlspecialchars($salariobasico = isset($row_verificar['salario_basico']) ? $row_verificar['salario_basico'] : ""); ?>" id="numeroEntero_1" oninput="validarNumeroEntero('numeroEntero_1')" required>
           <p id="mensajeError_1"></p>
+          <input type="hidden" name="id_configuracion" value="<?php echo $id_configuracion = isset($row_verificar['id_configuracion']) ? $row_verificar['id_configuracion'] : ""; ?>">
         </div>
         <div class="col-md-6">
           <label for="valorHora" class="form-label">Valor Hora:</label>
@@ -208,7 +226,7 @@ if ($Consultatabla >= 1) {
       </div>
       <div class="row">
         <div class="col-12 text-start">
-          <button type="submit" class="btn btn-primary me-2">Recalcular</button>
+          <button type="submit" class="btn btn-primary me-2" name="actualizar">Actualizar</button>
           <button type="submit" class="btn btn-primary me-2">Guardar</button>
           <a href="../Empleado/ListaEmpleados.php" class="btn btn-danger cancel">Cancelar</a>
         </div>
