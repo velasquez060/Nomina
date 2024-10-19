@@ -88,17 +88,44 @@ if ($Consultatabla >= 1) {
         $stmt->bindParam(':ajustePorcentual', $ajustePorcentual);
 
         if ($stmt->execute()) {
+          echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
           echo "<script>
-          alert('Configuración Agregada Correctamente');
-          window.location.href = 'AjustesNomina.php';
-      </script>";
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Éxito',
+                        text: '¡Actualización Agregada Correctamente!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'AjustesNomina.php';}
+                    });
+                });
+            </script>";
         } else {
-          echo "Error al agregar Configuración.";      }
+          echo "Error al agregar Configuración.";
+        }
       } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
       }
     } else {
-      echo "<script>alert('por favor rellenar todos los campos!!!!!');</script>";
+
+      echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+      echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un problema al agregar la configuración.',
+                    icon: 'error',
+                    confirmButtonText: 'Intentar de nuevo'
+                }).then((result) => {
+                    if (result.isConfirmed) 
+                        window.location.href = 'AjustesNomina.php';
+                        exit();
+                    }
+                });
+            });
+        </script>";
     }
   } else {
     //echo "No se recibieron datos del formulario.";
@@ -108,6 +135,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
 
   $id_configuracion = $_POST['id_configuracion'];
   $ajustePorcentual = $_POST['ajustePorcentual'];
+  $ajustePorcentual = isset($_POST['ajustePorcentual']) ? $_POST['ajustePorcentual'] : '';
+  if (empty($ajustePorcentual) || !is_numeric($ajustePorcentual)) {
+    echo "<script>alert('el campo ajuste procentual esta vacio, Agregue un valor');</script>";
+    echo "<script> window.location.href = 'AjustesNomina.php';</script>"; //pendiente solucionar alerta   
+  }
   $reajusteSalarioBasico = $salariobasico = $_POST['salarioBasico'] = $salariobasico + ($salariobasico *  $ajustePorcentual);
   $salariobasicoprueba = str_replace('.', '.', $reajusteSalarioBasico);
   $reajusteValorHora = $valorHora = $_POST['valorHora'] = $salariobasico / 230;
@@ -124,7 +156,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
   $valorHoraDomingosFestivosprueba = str_replace('.', '.', $reajusteValorHoraDomingosFestivos);
   $reajusteValorRecargoNocturno = $valorRecargoNocturno = $_POST['valorRecargoNocturno'] = $reajusteValorHora * 0.35;
   $valorRecargoNocturnoprueba = str_replace('.', '.', $reajusteValorRecargoNocturno);
- 
   $reajustevalorSalud = $valorSalud = $_POST['valorSalud'] = $salariobasico * 0.04;
   $valorSaludprueba = str_replace('.', '.', $reajustevalorSalud);
   $reajustevalorPension = $valorPension = $_POST['valorPension'] = $salariobasico * 0.04;
@@ -153,12 +184,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
   $validacionreAjuste = $stmt_verificar->rowCount();
 
   if ($validacionreAjuste >= 1) {
-      echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-      echo "<script>
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>
           document.addEventListener('DOMContentLoaded', function() {
               Swal.fire({
                   title: 'Éxito',
-                  text: '¡Configuración Agregada Correctamente!',
+                  text: '¡Actualización Agregada Correctamente!',
                   icon: 'success',
                   confirmButtonText: 'OK'
               }).then((result) => {
@@ -166,10 +197,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
                       window.location.href = 'AjustesNomina.php';}
               });
           });
-      </script>";};
-  } else {
-    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-    echo "<script>
+      </script>";
+  };
+} else {
+  echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+  echo "<script>
         document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 title: 'Error',
@@ -184,10 +216,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
             });
         });
     </script>";
-}  
+}
 
 
+if ($_SERVER['REQUEST_METHOD'] ==  'POST' && isset($_POST['eliminar'])) {
+  $id_configuracion = $_POST['id_configuracion'];
+  $sqleliminar = "DELETE FROM configuracion WHERE id_configuracion = :id";
+  $stmt_eliminar = $objconexion->prepare($sqleliminar);
+  $stmt_eliminar->bindParam(':id', $id_configuracion, PDO::PARAM_INT);
+  $stmt_eliminar->execute();
+  $validacion = $stmt_eliminar->rowCount();
 
+  if ($validacion >= 1) {
+
+
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>
+          document.addEventListener('DOMContentLoaded', function() {
+              Swal.fire({
+                  title: 'Éxito',
+                  text: '¡El registro se borro exitosamente!',
+                  icon: 'success',
+                  confirmButtonText: 'OK'
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      window.location.href = 'AjustesNomina.php';}
+              });
+          });
+      </script>";
+  } else {
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: 'Error',
+                text: 'Hubo un problema al eliminar el registro.',
+                icon: 'error',
+                confirmButtonText: 'Intentar de nuevo'
+            }).then((result) => {
+                if (result.isConfirmed) 
+                    window.location.href = 'AjustesNomina.php';
+                    exit();
+                }
+            });
+        });
+    </script>";
+  }
+}
 
 
 
@@ -207,7 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
     content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous" />
-    
+
 
 </head>
 
@@ -223,37 +298,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
       <div class="row mb-1">
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="salarioBasico" class="form-label">Salario Basico:</label>
-          <input type="text" name="salarioBasico" class="form-control" value="<?php echo ($salariobasicoformateado = isset($row_verificar['salario_basico']) ? $salariobasicoformateado : "");  ?>" id="numeroEntero_1" oninput="validarNumeroEntero('numeroEntero_1')" >
+          <input type="text" name="salarioBasico" class="form-control" value="<?php echo ($salariobasicoformateado = isset($row_verificar['salario_basico']) ? $salariobasicoformateado : "");  ?>" id="numeroEntero_1" oninput="validarNumeroEntero('numeroEntero_1')">
           <p id="mensajeError_1"></p>
           <input type="hidden" name="id_configuracion" value="<?php echo $id_configuracion = isset($row_verificar['id_configuracion']) ? $row_verificar['id_configuracion'] : ""; ?>">
         </div>
         <div class="col-md-6">
           <label for="valorHora" class="form-label">Valor Hora:</label>
-          <input type="text" name="valorHora" class="form-control" value="<?php echo htmlspecialchars($valor_horaformateado = isset($row_verificar['valor_hora']) ? $valor_horaformateado : ""); ?>" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')" >
+          <input type="text" name="valorHora" class="form-control" value="<?php echo htmlspecialchars($valor_horaformateado = isset($row_verificar['valor_hora']) ? $valor_horaformateado : ""); ?>" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')">
           <p id="mensajeError_2"></p>
         </div>
       </div>
       <div class="row mb-1">
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="valorHoraExtraDiurna" class="form-label">Valor Hora Extra Diurna:</label>
-          <input type="text" name="valorHoraExtraDiurna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_diurnaformateado = isset($row_verificar['valor_hora_extra_diurna']) ? $valor_hora_extra_diurnaformateado : ""); ?>" id="numeroEntero_3" oninput="validarNumeroEntero('numeroEntero_3')" >
+          <input type="text" name="valorHoraExtraDiurna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_diurnaformateado = isset($row_verificar['valor_hora_extra_diurna']) ? $valor_hora_extra_diurnaformateado : ""); ?>" id="numeroEntero_3" oninput="validarNumeroEntero('numeroEntero_3')">
           <p id="mensajeError_3"></p>
         </div>
         <div class="col-md-6">
           <label for="valorHoraExtraNocturna" class="form-label">Valor Hora Extra Nocturna:</label>
-          <input type="text" name="valorHoraExtraNocturna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_nocturnaformateado = isset($row_verificar['valor_hora_extra_nocturna']) ? $valor_hora_extra_nocturnaformateado : ""); ?>" id="numeroEntero_4" oninput="validarNumeroEntero('numeroEntero_4')" >
+          <input type="text" name="valorHoraExtraNocturna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_nocturnaformateado = isset($row_verificar['valor_hora_extra_nocturna']) ? $valor_hora_extra_nocturnaformateado : ""); ?>" id="numeroEntero_4" oninput="validarNumeroEntero('numeroEntero_4')">
           <p id="mensajeError_4"></p>
         </div>
       </div>
       <div class="row mb-1">
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="valorHoraExtraDominical" class="form-label">Valor Hora Extra Dominical:</label>
-          <input type="text" name="valorHoraExtraDominical" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_dominicalformateado = isset($row_verificar['valor_hora_extra_dominical']) ? $valor_hora_extra_dominicalformateado : ""); ?>" id="numeroEntero_5" oninput="validarNumeroEntero('numeroEntero_5')" >
+          <input type="text" name="valorHoraExtraDominical" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_dominicalformateado = isset($row_verificar['valor_hora_extra_dominical']) ? $valor_hora_extra_dominicalformateado : ""); ?>" id="numeroEntero_5" oninput="validarNumeroEntero('numeroEntero_5')">
           <p id="mensajeError_5"></p>
         </div>
         <div class="col-md-6">
           <label for="valorHoraExtraDominicalNocturna" class="form-label">Valor Hora Extra Dominical Nocturna:</label>
-          <input type="text" name="valorHoraExtraDominicalNocturna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_dominical_nocturnaformateado = isset($row_verificar['valor_hora_extra_dominical_nocturna']) ? $valor_hora_extra_dominical_nocturnaformateado : ""); ?>" id="numeroEntero_6" oninput="validarNumeroEntero('numeroEntero_6')" >
+          <input type="text" name="valorHoraExtraDominicalNocturna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_dominical_nocturnaformateado = isset($row_verificar['valor_hora_extra_dominical_nocturna']) ? $valor_hora_extra_dominical_nocturnaformateado : ""); ?>" id="numeroEntero_6" oninput="validarNumeroEntero('numeroEntero_6')">
           <p id="mensajeError_6"></p>
         </div>
       </div>
@@ -265,26 +340,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
         </div>
         <div class="col-md-6">
           <label for="valorRecargoNocturno" class="form-label">Valor Recargo Nocturno:</label>
-          <input type="text" name="valorRecargoNocturno" class="form-control" value="<?php echo htmlspecialchars($valor_recargo_nocturnoformateado = isset($row_verificar['valor_recargo_nocturno']) ? $valor_recargo_nocturnoformateado : ""); ?>" id="numeroEntero_8" oninput="validarNumeroEntero('numeroEntero_8')" >
+          <input type="text" name="valorRecargoNocturno" class="form-control" value="<?php echo htmlspecialchars($valor_recargo_nocturnoformateado = isset($row_verificar['valor_recargo_nocturno']) ? $valor_recargo_nocturnoformateado : ""); ?>" id="numeroEntero_8" oninput="validarNumeroEntero('numeroEntero_8')">
           <p id="mensajeError_8"></p>
         </div>
       </div>
       <div class="row mb-1">
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="valorAuxilioTransporte" class="form-label">Valor Auxilio de transporte:</label>
-          <input type="text" name="valorAuxilioTransporte" class="form-control" value="<?php echo htmlspecialchars($valor_auxilio_transporteformateado = isset($row_verificar['valor_auxilio_transporte']) ? $valor_auxilio_transporteformateado : ""); ?>" id="numeroEntero_9" oninput="validarNumeroEntero('numeroEntero_9')" >
+          <input type="text" name="valorAuxilioTransporte" class="form-control" value="<?php echo htmlspecialchars($valor_auxilio_transporteformateado = isset($row_verificar['valor_auxilio_transporte']) ? $valor_auxilio_transporteformateado : ""); ?>" id="numeroEntero_9" oninput="validarNumeroEntero('numeroEntero_9')">
           <p id="mensajeError_9"></p>
         </div>
         <div class="col-md-6">
           <label for="valorSalud" class="form-label">Valor Salud:</label>
-          <input type="text" name="valorSalud" class="form-control" value="<?php echo htmlspecialchars($valor_saludformateado = isset($row_verificar['valor_salud']) ? $valor_saludformateado : ""); ?>" id="numeroEntero_10" oninput="validarNumeroEntero('numeroEntero_10')" >
+          <input type="text" name="valorSalud" class="form-control" value="<?php echo htmlspecialchars($valor_saludformateado = isset($row_verificar['valor_salud']) ? $valor_saludformateado : ""); ?>" id="numeroEntero_10" oninput="validarNumeroEntero('numeroEntero_10')">
           <p id="mensajeError_10"></p>
         </div>
       </div>
       <div class="row mb-1">
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="valorPension" class="form-label">Valor Pensión:</label>
-          <input type="text" name="valorPension" class="form-control" value="<?php echo htmlspecialchars($valor_pensionformateado = isset($row_verificar['valor_pension']) ? $valor_pensionformateado : ""); ?>" id="numeroEntero_11" oninput="validarNumeroEntero('numeroEntero_11')" >
+          <input type="text" name="valorPension" class="form-control" value="<?php echo htmlspecialchars($valor_pensionformateado = isset($row_verificar['valor_pension']) ? $valor_pensionformateado : ""); ?>" id="numeroEntero_11" oninput="validarNumeroEntero('numeroEntero_11')">
           <p id="mensajeError_11"></p>
         </div>
         <div class="col-md-6 mb-3 mb-md-0">
@@ -296,7 +371,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
         <div class="col-12 text-start">
           <button type="submit" class="btn btn-primary me-2" name="actualizar">Actualizar</button>
           <button type="submit" class="btn btn-primary me-2">Guardar</button>
-          <a class="btn btn-danger" title="Eliminar" href="" role="button">Eliminar</a>
+          <!-- <a  class="btn btn-danger" title="Eliminar" name="eliminar" href="" role="button">Eliminar</a> -->
+          <button type="submit" class="btn btn-danger" name="eliminar" title="Eliminar">Eliminar</button>
           <a href="../Empleado/ListaEmpleados.php" class="btn btn-danger cancel">Cancelar</a>
         </div>
       </div>
