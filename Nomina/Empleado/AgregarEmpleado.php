@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   
   // Guardar la ruta de la imagen en la base de datos o utilizarla en el código
-  echo 'Ruta de la imagen: ' . $imagen;
+  //echo 'Ruta de la imagen: ' . $imagen;
 
   if (isset($_FILES["archivo"]) && $_FILES["archivo"]["error"] == UPLOAD_ERR_OK) {
     $archivo = $_FILES["archivo"]["name"];
@@ -73,7 +73,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $row_verificar = $stmt_verificar->fetch(PDO::FETCH_ASSOC);
 
       if ($row_verificar['count'] > 0) {
-        echo "<script>alert('El número de cédula ya existe.');</script>";
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+      echo "<script>
+          document.addEventListener('DOMContentLoaded', function() {
+              Swal.fire({
+                  title: 'Error',
+                  text: '¡Cédula ya existe!',
+                  icon: 'error',
+                  confirmButtonText: 'Intentar de nuevo'
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      window.location.href = 'AgregarEmpleado.php';}
+              });
+          });
+      </script>";
       } else {
         // Insertar nuevo registro
         $sql = "INSERT INTO empleado (nombre, apellido, cedula, fechaNacimiento, celular, direccion, correo, estadoCivil, eps, arl, fondoPensiones, fondoCesantias, entidadBancaria, numeroCuenta, fechaIngreso, fechaTerminacion, contactoEmergencia, numeroContactoEmergencia, archivo, fotoempleado) VALUES (:nombre, :apellido, :cedula, :fechaNacimiento, :celular, :direccion, :correo, :estadoCivil, :eps, :arl, :fondoPensiones, :fondoCesantias, :entidadBancaria, :numeroCuenta, :fechaIngreso, :fechaTerminacion, :contactoEmergencia, :numeroContactoEmergencia, :archivo, :fotoempleado)";
