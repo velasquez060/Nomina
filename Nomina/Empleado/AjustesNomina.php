@@ -52,40 +52,31 @@ if ($Consultatabla >= 1) {
   $valor_pensionformateado = number_format($valor_pension, 0, '', '.');
   $ajuste_porcentual = isset($row_verificar['ajuste_porcentual']) ? $row_verificar['ajuste_porcentual'] : "";
 } else {
-
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // funcionalidad de guardar 
+  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['guardar'])) {
     $salariobasico = htmlspecialchars($_POST["salarioBasico"]);
-    $valorhora = htmlspecialchars($_POST["valorHora"]);
-    $valorHoraExtraDiurna = htmlspecialchars($_POST["valorHoraExtraDiurna"]);
-    $valorHoraExtraNocturna = htmlspecialchars($_POST["valorHoraExtraNocturna"]);
-    $valorHoraExtraDominical = htmlspecialchars($_POST["valorHoraExtraDominical"]);
-    $valorHoraExtraDominicalNocturna = htmlspecialchars($_POST["valorHoraExtraDominicalNocturna"]);
-    $valorHoraDomingosFestivos = htmlspecialchars($_POST["valorHoraDomingosFestivos"]);
-    $valorRecargoNocturno = htmlspecialchars($_POST["valorRecargoNocturno"]);
+    $reajusteValorHora = $valorHora = $_POST['valorHora'] = $salariobasico / 230;
+    $reajusteValorHoraExtraDiurna = $valorHoraExtraDiurna = $_POST['valorHoraExtraDiurna'] = $reajusteValorHora * 1.25;
+    $reajusteValorHoraExtraNocturna = $valorHoraExtraNocturna = $_POST['valorHoraExtraNocturna'] = $reajusteValorHora * 1.75;
+    $reajusteValorHoraExtraDominical = $valorHoraExtraDominical = $_POST['valorHoraExtraDominical'] =  $reajusteValorHora * 2;
+    $reajusteValorHoraExtraDominicalNocturna = $valorHoraExtraDominicalNocturna = $_POST['valorHoraExtraDominicalNocturna'] = $reajusteValorHora  * 2.5;
+    $reajusteValorHoraDomingosFestivos = $valorHoraDomingosFestivos = $_POST['valorHoraDomingosFestivos'] = $reajusteValorHora * 1.75;
+    $reajusteValorRecargoNocturno = $valorRecargoNocturno = $_POST['valorRecargoNocturno'] = $reajusteValorHora * 0.35;
     $valorAuxilioTransporte = htmlspecialchars($_POST["valorAuxilioTransporte"]);
-    $valorSalud = htmlspecialchars($_POST["valorSalud"]);
-    $valorPension = htmlspecialchars($_POST["valorPension"]);
-    $ajustePorcentual = htmlspecialchars($_POST["ajustePorcentual"]) ? $_POST['ajustePorcentual'] : null;
+    $reajustevalorSalud = $valorSalud = $_POST['valorSalud'] = $salariobasico * 0.04;
+    $reajustevalorPension = $valorPension = $_POST['valorPension'] = $salariobasico * 0.04;
 
 
-    if (!empty($salariobasico) && !empty($valorhora) && !empty($valorHoraExtraDiurna) && !empty($valorHoraExtraNocturna) && !empty($valorHoraExtraDominical) && !empty($valorHoraExtraDominicalNocturna) && !empty($valorHoraDomingosFestivos) && !empty($valorRecargoNocturno) && !empty($valorAuxilioTransporte) && !empty($valorSalud) && !empty($valorPension)) {
+
+
+
+    if (!empty($salariobasico) && !empty($valorAuxilioTransporte)) {
 
       try {
-        $sql = "INSERT INTO configuracion (salario_basico, valor_hora, valor_hora_extra_diurna, valor_hora_extra_nocturna, valor_hora_extra_dominical, valor_hora_extra_dominical_nocturna, valor_hora_domingos_festivos, valor_recargo_nocturno, valor_auxilio_transporte, valor_salud, valor_pension, ajuste_porcentual) VALUES (:salariobasico, :valorhora, :valorHoraExtraDiurna,:valorHoraExtraNocturna, :valorHoraExtraDominical, :valorHoraExtraDominicalNocturna, :valorHoraDomingosFestivos, :valorRecargoNocturno, :valorAuxilioTransporte, :valorSalud, :valorPension, :ajustePorcentual)";
+        $sql = "INSERT INTO configuracion (salario_basico, valor_hora, valor_hora_extra_diurna, valor_hora_extra_nocturna, valor_hora_extra_dominical, valor_hora_extra_dominical_nocturna, valor_hora_domingos_festivos, valor_recargo_nocturno, valor_auxilio_transporte, valor_salud, valor_pension) VALUES ('$salariobasico', '$reajusteValorHora', '$reajusteValorHoraExtraDiurna','$reajusteValorHoraExtraNocturna', '$reajusteValorHoraExtraDominical', '$reajusteValorHoraExtraDominicalNocturna', '$reajusteValorHoraDomingosFestivos', '$reajusteValorRecargoNocturno', '$valorAuxilioTransporte', '$reajustevalorSalud', '$reajustevalorPension')";
 
         $stmt = $objconexion->prepare($sql);
-        $stmt->bindParam(':salariobasico', $salariobasico);
-        $stmt->bindParam(':valorhora', $valorhora);
-        $stmt->bindParam(':valorHoraExtraDiurna', $valorHoraExtraDiurna);
-        $stmt->bindParam(':valorHoraExtraNocturna', $valorHoraExtraNocturna);
-        $stmt->bindParam(':valorHoraExtraDominical', $valorHoraExtraDominical);
-        $stmt->bindParam(':valorHoraExtraDominicalNocturna', $valorHoraExtraDominicalNocturna);
-        $stmt->bindParam(':valorHoraDomingosFestivos', $valorHoraDomingosFestivos);
-        $stmt->bindParam(':valorRecargoNocturno', $valorRecargoNocturno);
-        $stmt->bindParam(':valorAuxilioTransporte', $valorAuxilioTransporte);
-        $stmt->bindParam(':valorSalud', $valorSalud);
-        $stmt->bindParam(':valorPension', $valorPension);
-        $stmt->bindParam(':ajustePorcentual', $ajustePorcentual);
+
 
         if ($stmt->execute()) {
           echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
@@ -370,7 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] ==  'POST' && isset($_POST['eliminar'])) {
       <div class="row">
         <div class="col-12 text-start">
           <button type="submit" class="btn btn-primary me-2" name="actualizar">Actualizar</button>
-          <button type="submit" class="btn btn-primary me-2">Guardar</button>
+          <button type="submit" class="btn btn-primary me-2" name="guardar">Guardar</button>
           <!-- <a  class="btn btn-danger" title="Eliminar" name="eliminar" href="" role="button">Eliminar</a> -->
           <button type="submit" class="btn btn-danger" name="eliminar" title="Eliminar">Eliminar</button>
           <a href="../Empleado/ListaEmpleados.php" class="btn btn-danger cancel">Cancelar</a>
