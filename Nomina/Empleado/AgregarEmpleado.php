@@ -29,17 +29,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // Verificar si se ha subido una imagen
   if (!empty($_FILES['imagen']['name'])) {
-      $imagen = $_FILES['imagen']['name'];
-      $imagen_tmp = $_FILES['imagen']['tmp_name'];
-      $ruta_imagen = '../fotos/' . $imagen;
-  
-      // Mover la imagen subida a la carpeta de destino
-      move_uploaded_file($imagen_tmp, $ruta_imagen);
+    $imagen = $_FILES['imagen']['name'];
+    $imagen_tmp = $_FILES['imagen']['tmp_name'];
+    $ruta_imagen = '../fotos/' . $imagen;
+
+    // Mover la imagen subida a la carpeta de destino
+    move_uploaded_file($imagen_tmp, $ruta_imagen);
   } else {
-      // Asignar la imagen por defecto si no se sube ninguna imagen
-      $imagen = $imagen_por_defecto;
+    // Asignar la imagen por defecto si no se sube ninguna imagen
+    $imagen = $imagen_por_defecto;
   }
-  
+
   // Guardar la ruta de la imagen en la base de datos o utilizarla en el código
   //echo 'Ruta de la imagen: ' . $imagen;
 
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       if ($row_verificar['count'] > 0) {
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-      echo "<script>
+        echo "<script>
           document.addEventListener('DOMContentLoaded', function() {
               Swal.fire({
                   title: 'Error',
@@ -114,10 +114,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':fotoempleado', $ruta_imagen);
 
         if ($stmt->execute()) {
-          echo "<script>alert('Usuario Agregado Correctamente');</script>";
-          header("Location: ListaEmpleados.php");
+          echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+          echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Éxito',
+                        text: '¡Usuario Agregado Correctamente!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'ListaEmpleados.php';}
+                    });
+                });
+            </script>";
         } else {
-          echo "Error al agregar empleado.";
+          echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+          echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un problema al agregar el nuevo usuario.',
+                    icon: 'error',
+                    confirmButtonText: 'Intentar de nuevo'
+                }).then((result) => {
+                    if (result.isConfirmed) 
+                        window.location.href = 'AjustesNomina.php';
+                        exit();
+                    }
+                });
+            });
+        </script>";
         }
       }
     } catch (Exception $e) {
@@ -128,7 +155,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $objconexion = null;
     }
   } else {
-    echo "<script>alert('Por favor rellene todos los campos');</script>";
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Por favor completar todos los campos.',
+                    icon: 'error',
+                    confirmButtonText: 'Intentar de nuevo'
+                }).then((result) => {
+                    if (result.isConfirmed) 
+                        window.location.href = 'AjustesNomina.php';
+                        exit();
+                    }
+                });
+            });
+        </script>";
   }
 } else {
   //echo "No se recibieron datos del formulario.";
@@ -159,20 +201,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <H1 class="tituloempleado">FICHA EMPLEADO</H1>
     <br>
     <div class="contenedorfoto">
-  
-    <div class="circle-container" id="preview"></div>
+
+      <div class="circle-container" id="preview"></div>
+    </div>
   </div>
-</div>
   </div>
 
   <div class="container col-md-8">
 
 
     <form class="row g-3 prueba needs-validation" novalidate id="formulario" action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
-    <div>  
-    <button  type="button" class="file-button" id="file-button" name="imagen" title="Editar Foto"><img src="../iconos/editarFoto.png" alt=""></button>
-    <input type="file" id="file-upload" class="hidden-file-input" name="imagen">  
-    </div >
+      <div>
+        <button type="button" class="file-button" id="file-button" name="imagen" title="Editar Foto"><img src="../iconos/editarFoto.png" alt=""></button>
+        <input type="file" id="file-upload" class="hidden-file-input" name="imagen">
+      </div>
 
       <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
 
@@ -280,7 +322,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
   <div id="alerta" class="alert"></div>
   </div>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 

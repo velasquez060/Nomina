@@ -128,8 +128,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
   $ajustePorcentual = $_POST['ajustePorcentual'];
   $ajustePorcentual = isset($_POST['ajustePorcentual']) ? $_POST['ajustePorcentual'] : '';
   if (empty($ajustePorcentual) || !is_numeric($ajustePorcentual)) {
-    echo "<script>alert('el campo ajuste procentual esta vacio, Agregue un valor');</script>";
-    echo "<script> window.location.href = 'AjustesNomina.php';</script>"; //pendiente solucionar alerta   
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+      echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un problema al agregar la configuración.',
+                    icon: 'error',
+                    confirmButtonText: 'Intentar de nuevo'
+                }).then((result) => {
+                    if (result.isConfirmed) 
+                        window.location.href = 'AjustesNomina.php';
+                        exit();
+                    }
+                });
+            });
+        </script>";
   }
   $reajusteSalarioBasico = $salariobasico = $_POST['salarioBasico'] = $salariobasico + ($salariobasico *  $ajustePorcentual);
   $salariobasicoprueba = str_replace('.', '.', $reajusteSalarioBasico);
@@ -182,13 +196,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
                   title: 'Éxito',
                   text: '¡Actualización Agregada Correctamente!',
                   icon: 'success',
-                  confirmButtonText: 'OK'
+                  showCancelButton: true,
+                  confirmButtonText: 'OK',
+                  cancelButtonText: 'Cancelar'
               }).then((result) => {
                   if (result.isConfirmed) {
-                      window.location.href = 'AjustesNomina.php';}
+                      window.location.href = 'AjustesNomina.php';
+                  }
               });
           });
       </script>";
+    
   };
 } else {
   echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
@@ -219,25 +237,33 @@ if ($_SERVER['REQUEST_METHOD'] ==  'POST' && isset($_POST['eliminar'])) {
   $validacion = $stmt_eliminar->rowCount();
 
   if ($validacion >= 1) {
-
-
     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
     echo "<script>
-          document.addEventListener('DOMContentLoaded', function() {
-              Swal.fire({
-                  title: 'Éxito',
-                  text: '¡El registro se borro exitosamente!',
-                  icon: 'success',
-                  confirmButtonText: 'OK'
-              }).then((result) => {
-                  if (result.isConfirmed) {
-                      window.location.href = 'AjustesNomina.php';}
-              });
-          });
-      </script>";
-  } else {
-    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-    echo "<script>
+        Swal.fire({
+            title: 'Eliminar registro?',
+            text: 'El registro será eliminado',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Listo!',
+                    text: 'Registro eliminado con exito.',
+                    icon: 'success'
+                }).then(() => {
+                    window.location.href = 'AjustesNomina.php';
+                });
+            }
+        });
+    </script>";
+  }
+} else {
+  echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+  echo "<script>
         document.addEventListener('DOMContentLoaded', function() {
             Swal.fire({
                 title: 'Error',
@@ -252,8 +278,9 @@ if ($_SERVER['REQUEST_METHOD'] ==  'POST' && isset($_POST['eliminar'])) {
             });
         });
     </script>";
-  }
 }
+
+
 
 
 
@@ -289,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] ==  'POST' && isset($_POST['eliminar'])) {
       <div class="row mb-1">
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="salarioBasico" class="form-label">Salario Basico:</label>
-          <input type="text" name="salarioBasico" class="form-control" value="<?php echo ($salariobasicoformateado = isset($row_verificar['salario_basico']) ? $salariobasicoformateado : "");  ?>" id="numeroEntero_1" oninput="validarNumeroEntero('numeroEntero_1')">
+          <input type="text" name="salarioBasico" class="form-control" value="<?php echo ($salariobasicoformateado = isset($row_verificar['salario_basico']) ? $salariobasicoformateado : "");  ?>" id="numeroEntero_1" required oninput="validarNumeroEntero('numeroEntero_1')">
           <p id="mensajeError_1"></p>
           <input type="hidden" name="id_configuracion" value="<?php echo $id_configuracion = isset($row_verificar['id_configuracion']) ? $row_verificar['id_configuracion'] : ""; ?>">
         </div>
@@ -338,7 +365,7 @@ if ($_SERVER['REQUEST_METHOD'] ==  'POST' && isset($_POST['eliminar'])) {
       <div class="row mb-1">
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="valorAuxilioTransporte" class="form-label">Valor Auxilio de transporte:</label>
-          <input type="text" name="valorAuxilioTransporte" class="form-control" value="<?php echo htmlspecialchars($valor_auxilio_transporteformateado = isset($row_verificar['valor_auxilio_transporte']) ? $valor_auxilio_transporteformateado : ""); ?>" id="numeroEntero_9" oninput="validarNumeroEntero('numeroEntero_9')">
+          <input type="text" name="valorAuxilioTransporte" class="form-control" value="<?php echo htmlspecialchars($valor_auxilio_transporteformateado = isset($row_verificar['valor_auxilio_transporte']) ? $valor_auxilio_transporteformateado : ""); ?>" id="numeroEntero_9" required  oninput="validarNumeroEntero('numeroEntero_9')">
           <p id="mensajeError_9"></p>
         </div>
         <div class="col-md-6">

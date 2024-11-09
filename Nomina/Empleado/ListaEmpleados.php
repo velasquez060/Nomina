@@ -183,8 +183,11 @@ include('../Menu.php');
         function borrar(id_Usuario) {
     Swal.fire({
         title: "¿Desea borrar el registro?",
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: "Si, Borrar"
+        cancelButtonColor: '#d33',
+        confirmButtonText: "Si, Borrar",
+        cancelButtonText: 'Cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire({
