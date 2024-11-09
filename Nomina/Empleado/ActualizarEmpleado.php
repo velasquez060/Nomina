@@ -118,7 +118,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <H1 class="tituloempleado">Actualización Ficha Empleado</H1>
     <br>
     <div class="contenedorfoto">
-      <div class=" col-md-3 circle-container" id="preview"></div>
+      <div class=" col-md-3 circle-container" id="preview">
+      <img src="<?php echo $empleado['fotoempleado']; ?>" alt="" class="img-fluid rounded-circle">
+      </div>
     </div>
   </div>
 
