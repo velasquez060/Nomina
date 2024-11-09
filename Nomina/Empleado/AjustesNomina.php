@@ -144,7 +144,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
                 });
             });
         </script>";
+    
   }
+
+  if(!isset($ajustePorcentual)){
+
+  
   $reajusteSalarioBasico = $salariobasico = $_POST['salarioBasico'] = $salariobasico + ($salariobasico *  $ajustePorcentual);
   $salariobasicoprueba = str_replace('.', '.', $reajusteSalarioBasico);
   $reajusteValorHora = $valorHora = $_POST['valorHora'] = $salariobasico / 230;
@@ -208,6 +213,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
       </script>";
     
   };
+}else{
+  echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+  echo "<script>
+        Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema, el campo Ajuste porcentual no puede ir vacio',
+            icon: 'error',
+            confirmButtonText: 'Intentar de nuevo',
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'AjustesNomina.php';
+            }
+        });
+    </script>";
+}
 } else {
   echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
   echo "<script>

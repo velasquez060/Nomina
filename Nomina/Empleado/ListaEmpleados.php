@@ -112,7 +112,7 @@ include('../Menu.php');
                     </div>
                     <div class="modal-body">
                         <div class="col-12 text-center">
-                            <img width="70" height="70" src="../fotos/<?php echo htmlspecialchars($imagen); ?>" alt="Foto del empleado">
+                            <img width="70" height="70" src="<?php echo $empleado['fotoempleado']; ?>" alt="Foto del empleado">
                         </div>
                         <div class="table-responsive">
                             <table class="table table-bordered">
