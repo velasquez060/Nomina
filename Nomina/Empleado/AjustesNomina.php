@@ -248,66 +248,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
     </script>";
 }
 
-
-if ($_SERVER['REQUEST_METHOD'] ==  'POST' && isset($_POST['eliminar'])) {
-  $id_configuracion = $_POST['id_configuracion'];
-  $sqleliminar = "DELETE FROM configuracion WHERE id_configuracion = :id";
-  $stmt_eliminar = $objconexion->prepare($sqleliminar);
-  $stmt_eliminar->bindParam(':id', $id_configuracion, PDO::PARAM_INT);
-  $stmt_eliminar->execute();
-  $validacion = $stmt_eliminar->rowCount();
-
-  if ($validacion >= 1) {
-    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-    echo "<script>
-        Swal.fire({
-            title: 'Eliminar registro?',
-            text: 'El registro será eliminado',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar!',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    title: 'Listo!',
-                    text: 'Registro eliminado con exito.',
-                    icon: 'success'
-                }).then(() => {
-                    window.location.href = 'AjustesNomina.php';
-                });
-            }
-        });
-    </script>";
-  }
-} else {
-  echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
-  echo "<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Swal.fire({
-                title: 'Error',
-                text: 'Hubo un problema al eliminar el registro.',
-                icon: 'error',
-                confirmButtonText: 'Intentar de nuevo'
-            }).then((result) => {
-                if (result.isConfirmed) 
-                    window.location.href = 'AjustesNomina.php';
-                    exit();
-                }
-            });
-        });
-    </script>";
+if (isset($_GET['borrar'])) {
+  $id = $_GET['borrar'];
+  $objConexion = new conexion();
+  $sql = "DELETE FROM configuracion WHERE id_configuracion = $id";
+  $objConexion->ejecutar($sql);
+  header("location: AjustesNomina.php");
+  exit();
 }
 
 
-
-
-
-
-
-
+  
 
 ?>
 <!doctype html>
@@ -411,7 +362,9 @@ if ($_SERVER['REQUEST_METHOD'] ==  'POST' && isset($_POST['eliminar'])) {
           <button type="submit" class="btn btn-primary me-2" name="actualizar">Actualizar</button>
           <button type="submit" class="btn btn-primary me-2" name="guardar">Guardar</button>
           <!-- <a  class="btn btn-danger" title="Eliminar" name="eliminar" href="" role="button">Eliminar</a> -->
-          <button type="submit" class="btn btn-danger" name="eliminar" title="Eliminar">Eliminar</button>
+          <a class="btn btn-danger" title="Eliminar" name="borrar" href="javascript:borrar(<?php echo htmlspecialchars($id_configuracion); ?>);" role="button">Eliminar</a>
+
+          
           <a href="../Empleado/ListaEmpleados.php" class="btn btn-danger cancel">Cancelar</a>
         </div>
       </div>
@@ -430,6 +383,29 @@ if ($_SERVER['REQUEST_METHOD'] ==  'POST' && isset($_POST['eliminar'])) {
     crossorigin="anonymous"></script>
 
   <script src="../js/validacionCampos.js"></script>
+
+  <script>
+        function borrar(id_configuracion) {
+    Swal.fire({
+        title: "¿Desea borrar el registro?",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        confirmButtonText: "Si, Borrar",
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: "¡Eliminado!",
+                text: "El registro ha sido borrado.",
+                icon: "success"
+            }).then(() => {
+                window.location = "AjustesNomina.php?borrar=" + id_configuracion;
+            });
+        }
+    });
+}
+    </script>
 
 </body>
 

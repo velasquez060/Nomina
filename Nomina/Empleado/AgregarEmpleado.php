@@ -241,7 +241,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Celular: <span style="color: red;">*</span></label>
-        <input type="text" name="textCelular" class="form-control" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')" required>
+        <input type="tel" name="textCelular" class="form-control" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')" required>
         <div class="invalid-feedback">Por favor ingrese el Número de Celular.</div>
         <p id="mensajeError_2"></p>
       </div>
