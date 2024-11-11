@@ -173,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <div class="col-md-6">
     <label class="form-label">Estado Civil: <span style="color: red;">*</span></label>
-    <select name="textEstadoCivil" class="form-control" id="inputEstadoCivil" required>
+    <select name="textEstadoCivil" class="form-select" id="inputEstadoCivil" required>  
     <option value="soltero" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'soltero' ? 'selected' : ''; ?>>Soltero/a</option>
     <option value="casado" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'casado' ? 'selected' : ''; ?>>Casado/a</option>
     <option value="divorciado" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'divorciado' ? 'selected' : ''; ?>>Divorciado/a</option>

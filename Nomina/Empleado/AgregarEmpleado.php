@@ -257,8 +257,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="col-md-6">
         <label class="form-label">Estado Civil: <span style="color: red;">*</span></label>
-        <!-- <input type="text" name="textEstadoCivil" class="form-control" id="inputEstadoCivil" required> -->
-        <select name="textEstadoCivil" class="form-control" id="inputEstadoCivil" required>
+        <select name="textEstadoCivil" class="form-select" id="inputEstadoCivil" required>
+        <option value=""></option>  
         <option value="soltero">Soltero/a</option>
         <option value="casado">Casado/a</option>
         <option value="divorciado">Divorciado/a</option>
