@@ -172,10 +172,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="invalid-feedback">Por favor ingrese el Correo.</div>
       </div>
       <div class="col-md-6">
-        <label class="form-label">Estado Civil: <span style="color: red;">*</span></label>
-        <input type="text" name="textEstadoCivil" class="form-control" id="inputEstadoCivil" value="<?php echo $empleado['estadoCivil']; ?>" required>
-        <div class="invalid-feedback">Por favor ingrese Estado Civil.</div>
-      </div>
+    <label class="form-label">Estado Civil: <span style="color: red;">*</span></label>
+    <select name="textEstadoCivil" class="form-control" id="inputEstadoCivil" required>
+    <option value="soltero" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'soltero' ? 'selected' : ''; ?>>Soltero/a</option>
+    <option value="casado" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'casado' ? 'selected' : ''; ?>>Casado/a</option>
+    <option value="divorciado" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'divorciado' ? 'selected' : ''; ?>>Divorciado/a</option>
+    <option value="viudo" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'viudo' ? 'selected' : ''; ?>>Viudo/a</option>
+    <option value="union_libre" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'union_libre' ? 'selected' : ''; ?>>Unión Libre</option>
+</select>
+
+    <div class="invalid-feedback">Por favor ingrese Estado Civil.</div>
+</div>
+
+<div class="col-md-6">
+    <label class="form-label">EPS:</label>
+    <input type="text" name="textEps" class="form-control" id="inputEps" value="<?php echo $empleado['eps']; ?>">
+</div>
+
       <div class="col-md-6">
         <label class="form-label">EPS:</label>
         <input type="text" name="textEps" class="form-control" id="inputEps" value="<?php echo $empleado['eps']; ?>">
