@@ -259,10 +259,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label class="form-label">Estado Civil: <span style="color: red;">*</span></label>
         <select name="textEstadoCivil" class="form-select" id="inputEstadoCivil" required>
         <option value=""></option>  
-        <option value="soltero">Soltero/a</option>
-        <option value="casado">Casado/a</option>
-        <option value="divorciado">Divorciado/a</option>
-        <option value="viudo">Viudo/a</option>
+        <option value="Soltero/a">Soltero/a</option>
+        <option value="Casado/a">Casado/a</option>
+        <option value="Divorciado/a">Divorciado/a</option>
+        <option value="Viudo/a">Viudo/a</option>
         <option value="union_libre">Unión Libre</option>
     </select>
         <div class="invalid-feedback">Por favor ingrese Estado Civil.</div>

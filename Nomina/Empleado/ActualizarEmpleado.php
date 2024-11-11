@@ -174,11 +174,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="col-md-6">
     <label class="form-label">Estado Civil: <span style="color: red;">*</span></label>
     <select name="textEstadoCivil" class="form-select" id="inputEstadoCivil" required>  
-    <option value="soltero" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'soltero' ? 'selected' : ''; ?>>Soltero/a</option>
-    <option value="casado" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'casado' ? 'selected' : ''; ?>>Casado/a</option>
-    <option value="divorciado" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'divorciado' ? 'selected' : ''; ?>>Divorciado/a</option>
-    <option value="viudo" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'viudo' ? 'selected' : ''; ?>>Viudo/a</option>
-    <option value="union_libre" <?php echo strtolower(trim($empleado['estadoCivil'])) === 'union_libre' ? 'selected' : ''; ?>>Unión Libre</option>
+    <option value="Soltero/a" <?php echo ucwords(trim($empleado['estadoCivil'])) === 'Soltero/a' ? 'selected' : ''; ?>>Soltero/a</option>
+    <option value="Casado/a" <?php echo ucwords(trim($empleado['estadoCivil'])) === 'Casado/a' ? 'selected' : ''; ?>>Casado/a</option>
+    <option value="Divorciado/a" <?php echo ucwords(trim($empleado['estadoCivil'])) === 'Divorciado/a' ? 'selected' : ''; ?>>Divorciado/a</option>
+    <option value="Viudo/a" <?php echo ucwords(trim($empleado['estadoCivil'])) === 'Viudo/a' ? 'selected' : ''; ?>>Viudo/a</option>
+    <option value="union_libre" <?php echo ucwords(trim($empleado['estadoCivil'])) === 'union_libre' ? 'selected' : ''; ?>>Unión Libre</option>
 </select>
 
     <div class="invalid-feedback">Por favor ingrese Estado Civil.</div>
