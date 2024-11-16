@@ -90,9 +90,9 @@ include('../Menu.php');
 
                             <a class="btn" title="Actualizar" href="ActualizarEmpleado.php?id=<?php echo htmlspecialchars($empleado['id_Usuario']); ?>" role="button"><img src="../iconos/actualizar.jpeg"></a>
 
-                            <a class="btn" title="Nómina" href="../Empleado/nomina.php"><img src="../iconos/novedades.png"></a>
+                            <a class="btn" title="Agregar Nómina" href="../Empleado/nomina.php"><img src="../iconos/nomina.png"></a>
 
-
+                            <a class="btn" title="Modificar Nómina" href=""><img src="../iconos/EditarNomina.png"></a>
                             <a class="btn" title="Eliminar" href="javascript:borrar(<?php echo htmlspecialchars($empleado['id_Usuario']); ?>);" role="button"><img src="../iconos/delete.png"></a>
                         </td>
                     </tr>
