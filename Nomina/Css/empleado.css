@@ -69,8 +69,8 @@ p {
 
 
 .contenedorfoto {
-    position: relative;
-    margin-left: 580px;
+    /* position: relative;
+    margin-left: 580px; */
 }
 
 #fileInput {
@@ -89,25 +89,25 @@ p {
     height: 200px;
     border-radius: 50%;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
     border: 2px solid #ddd;
-    position: relative;
+    /* position: relative; */
     
 }
 
 .circle-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    position: relative;
+    /* object-fit: cover;
+    position: relative; */
     
 }
 
 .foto{
     
-    position: relative;
+    /* position: relative; */
     margin-left: 480px;
 }
 
@@ -126,9 +126,9 @@ p {
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-    position: absolute;
+    /* position: absolute;
     margin-top: -70px;
-    margin-left: 450px;
+    margin-left: 450px; */
     background-color: transparent !important;;
 }
 

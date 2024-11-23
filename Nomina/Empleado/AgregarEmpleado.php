@@ -195,24 +195,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </head>
 
-<body>
-
-  <div class="titulo">
-    <H1 class="tituloempleado">FICHA EMPLEADO</H1>
-    <br>
-    <div class="contenedorfoto">
-
-      <div class="circle-container" id="preview"></div>
-    </div>
-  </div>
-  </div>
+<body class="bg-light">
 
   <div class="container col-md-8">
 
+    <div class="container-fluid py-4">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
 
-    <form class="row g-3 prueba needs-validation" novalidate id="formulario" action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
+          <div class="text-center mb-4">
+
+            <h1 class="display-5 fw-bold mb-4">FICHA EMPLEADO</h1>
+
+            <div class="position-relative mx-auto" style="max-width: 200px;">
+
+              <div class="ratio ratio-1x1">
+                <button type="button" class="file-button start-50" id="file-button" name="imagen" title="Editar Foto" style="z-index: 10;">
+                  <img src="../iconos/editarFoto.png" alt="Editar Foto" class="img-fluid">
+                </button>
+                <div class="rounded-circle overflow-hidden bg-light border shadow-sm" id="preview">
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="row g-3 needs-validation" novalidate id="formulario" action="AgregarEmpleado.php" method="post" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
       <div>
-        <button type="button" class="file-button" id="file-button" name="imagen" title="Editar Foto"><img src="../iconos/editarFoto.png" alt=""></button>
+        <!-- <button type="button" class="file-button" id="file-button" name="imagen" title="Editar Foto"><img src="../iconos/editarFoto.png" alt=""></button> -->
         <input type="file" id="file-upload" class="hidden-file-input" name="imagen">
       </div>
 
@@ -258,13 +272,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <div class="col-md-6">
         <label class="form-label">Estado Civil: <span style="color: red;">*</span></label>
         <select name="textEstadoCivil" class="form-select" id="inputEstadoCivil" required>
-        <option value=""></option>  
-        <option value="Soltero/a">Soltero/a</option>
-        <option value="Casado/a">Casado/a</option>
-        <option value="Divorciado/a">Divorciado/a</option>
-        <option value="Viudo/a">Viudo/a</option>
-        <option value="union_libre">Unión Libre</option>
-    </select>
+          <option value=""></option>
+          <option value="Soltero/a">Soltero/a</option>
+          <option value="Casado/a">Casado/a</option>
+          <option value="Divorciado/a">Divorciado/a</option>
+          <option value="Viudo/a">Viudo/a</option>
+          <option value="union_libre">Unión Libre</option>
+        </select>
         <div class="invalid-feedback">Por favor ingrese Estado Civil.</div>
       </div>
       <div class="col-md-6">
@@ -321,7 +335,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input class="form-control" type="file" name="archivo" id="">
         <br>
         <br>
-        <button type="submit" class="btn btn-primary" value="Registrar" name="registrar" id="registrar" onclick="prueba">Registrar</button>
+        <button type="submit" class="btn btn-primary" value="Registrar" name="registrar" id="registrar" >Registrar</button>
       </div>
 
 

@@ -113,21 +113,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </head>
 
-<body>
-  <div class="titulo">
-    <H1 class="tituloempleado">Actualización Ficha Empleado</H1>
-    <br>
-    <div class="contenedorfoto">
-      <div class=" col-md-3 circle-container" id="preview">
-      <img src="<?php echo $empleado['fotoempleado']; ?>" alt="" class="img-fluid rounded-circle">
-      </div>
-    </div>
-  </div>
+<body class="bg-light">
 
   <div class="container col-md-8">
+  <div class="container-fluid py-4">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+
+          <div class="text-center mb-4">
+
+            <h1 class="display-5 fw-bold mb-4">FICHA EMPLEADO</h1>
+
+            <div class="position-relative mx-auto" style="max-width: 200px;">
+
+              <div class="ratio ratio-1x1">
+                <button type="button" class="file-button start-50" id="file-button" name="imagen" title="Editar Foto" style="z-index: 10;">
+                  <img src="../iconos/editarFoto.png" alt="Editar Foto" class="img-fluid">
+                </button>
+                <div class="rounded-circle overflow-hidden bg-light border shadow-sm" id="preview">
+                <img src="<?php echo $empleado['fotoempleado']; ?>" alt="" class="img-fluid rounded-circle">
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <form class="row g-3 needs-validation" novalidate id="formulario" action="ActualizarEmpleado.php" method="POST" autocomplete="on" enctype="multipart/form-data" onsubmit="return validarFormulario();">
     <div>  
-    <button type="button" class="md-3 file-button" id="file-button" name="imagen" title="Editar Foto"><img src="../iconos/editarFoto.png" alt=""></button>
+    
     <input type="file" id="file-upload" class="hidden-file-input" name="imagen">  
     </div>
       <p>Todos campos con &nbsp;<span style="color: red;">*</span>&nbsp; son de carácter obligatorio. </p>
@@ -184,10 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="invalid-feedback">Por favor ingrese Estado Civil.</div>
 </div>
 
-<div class="col-md-6">
-    <label class="form-label">EPS:</label>
-    <input type="text" name="textEps" class="form-control" id="inputEps" value="<?php echo $empleado['eps']; ?>">
-</div>
+
 
       <div class="col-md-6">
         <label class="form-label">EPS:</label>
