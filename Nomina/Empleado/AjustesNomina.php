@@ -24,6 +24,7 @@ if ($Consultatabla >= 1) {
   $valorSalud = "";
   $valorPension = "";
   $ajustePorcentual = "";
+
   $row_verificar = $stmt_verificar->fetch(PDO::FETCH_ASSOC);
 
 
@@ -51,6 +52,7 @@ if ($Consultatabla >= 1) {
   $valor_pension = isset($row_verificar['valor_pension']) ? $row_verificar['valor_pension'] : "";
   $valor_pensionformateado = number_format($valor_pension, 0, '', '.');
   $ajuste_porcentual = isset($row_verificar['ajuste_porcentual']) ? $row_verificar['ajuste_porcentual'] : "";
+  $campo_empresa_act = isset($row_verificar['campo_empresa'])? $row_verificar['campo_empresa'] : "";
 } else {
   // funcionalidad de guardar 
   if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['guardar'])) {
@@ -65,15 +67,15 @@ if ($Consultatabla >= 1) {
     $valorAuxilioTransporte = htmlspecialchars($_POST["valorAuxilioTransporte"]);
     $reajustevalorSalud = $valorSalud = $_POST['valorSalud'] = $salariobasico * 0.04;
     $reajustevalorPension = $valorPension = $_POST['valorPension'] = $salariobasico * 0.04;
+    $nombre_empresa = htmlspecialchars($_POST["nombre_empresa"]);
 
 
 
 
-
-    if (!empty($salariobasico) && !empty($valorAuxilioTransporte)) {
+    if (!empty($salariobasico) && !empty($valorAuxilioTransporte) && !empty($nombre_empresa)) {
 
       try {
-        $sql = "INSERT INTO configuracion (salario_basico, valor_hora, valor_hora_extra_diurna, valor_hora_extra_nocturna, valor_hora_extra_dominical, valor_hora_extra_dominical_nocturna, valor_hora_domingos_festivos, valor_recargo_nocturno, valor_auxilio_transporte, valor_salud, valor_pension) VALUES ('$salariobasico', '$reajusteValorHora', '$reajusteValorHoraExtraDiurna','$reajusteValorHoraExtraNocturna', '$reajusteValorHoraExtraDominical', '$reajusteValorHoraExtraDominicalNocturna', '$reajusteValorHoraDomingosFestivos', '$reajusteValorRecargoNocturno', '$valorAuxilioTransporte', '$reajustevalorSalud', '$reajustevalorPension')";
+        $sql = "INSERT INTO configuracion (salario_basico, valor_hora, valor_hora_extra_diurna, valor_hora_extra_nocturna, valor_hora_extra_dominical, valor_hora_extra_dominical_nocturna, valor_hora_domingos_festivos, valor_recargo_nocturno, valor_auxilio_transporte, valor_salud, valor_pension, nombre_empresa) VALUES ('$salariobasico', '$reajusteValorHora', '$reajusteValorHoraExtraDiurna','$reajusteValorHoraExtraNocturna', '$reajusteValorHoraExtraDominical', '$reajusteValorHoraExtraDominicalNocturna', '$reajusteValorHoraDomingosFestivos', '$reajusteValorRecargoNocturno', '$valorAuxilioTransporte', '$reajustevalorSalud', '$reajustevalorPension', '$nombre_empresa')";
 
         $stmt = $objconexion->prepare($sql);
 
@@ -357,6 +359,13 @@ if (isset($_GET['borrar'])) {
           <input type="text" name="ajustePorcentual" class="form-control" value="<?php echo htmlspecialchars($ajuste_porcentual = isset($row_verificar['ajuste_porcentual']) ? $row_verificar['ajuste_porcentual'] : ""); ?>">
         </div>
       </div>
+      <div class="row mb-1">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <label for="salarioBasico" class="form-label">Nombre Empresa:</label>
+          <input type="text" name="nombre_empresa" class="form-control" value="<?php echo htmlspecialchars($nombre_empresa = isset($row_verificar['nombre_empresa']) ? $row_verificar['nombre_empresa'] : ""); ?>">
+        </div>
+      </div>
+      <br>
       <div class="row">
         <div class="col-12 text-start">
           <button type="submit" class="btn btn-primary me-2" name="actualizar">Actualizar</button>
