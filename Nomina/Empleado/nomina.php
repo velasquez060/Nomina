@@ -294,10 +294,11 @@ include("../Menu.php");
             </div>
             <br>
             <div class="row mb-1 justify-content-center align-items-center">
-                <div class="col-md-3 mb-3 mb-md-0 ">
+                <div class="col-md-4 mb-3 mb-md-0 ">
                     <button type="button" class="btn btn-primary">Calcular</button>
                     <button type="button" class="btn btn-primary">Guardar</button>
                     <button type="button" class="btn btn-danger">Eliminar</button>
+                    <a href="./ListaEmpleados.php" class="btn btn-danger">Cancelar</a>
 
                 </div>
 
