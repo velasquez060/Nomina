@@ -1,5 +1,28 @@
 <?php
 include("../Menu.php");
+require('../conexion/conexion.php');
+$objconexion = new conexion();
+
+// if($_GET["id"] != "" && $_GET["id_configuracion"] != ""){
+
+//     echo "este es el id del empleado: " . $id_empleado = $_GET["id"];
+//     echo "<br>";
+//     echo "este es el id de la Configuracion: " . $id_Configuracion = $_GET['id_configuracion'];
+// }
+
+$ID_Empleado = $_GET["id"];
+$TernarioEmpleado = $ID_Empleado != "" ?  "el ID del Empeado es " . $ID_Empleado : "Hubo un error al capturar el ID del Empleado";
+echo $TernarioEmpleado;
+echo "<br>";
+$ID_Configuracion = $_GET["id_configuracion"];
+$TernarioConfiguracion = $ID_Configuracion != "" ?  "el ID de la Configuracion es " . $ID_Configuracion : "Hubo un error al capturar el ID de la Configuracion";
+echo $TernarioConfiguracion;
+
+
+
+
+
+
 ?>
 
 <!doctype html>
@@ -28,6 +51,7 @@ include("../Menu.php");
         <br>
         <form action="">
             <div class="informacion">
+
                 <div class="row mb-1">
                     <div class="col-md-2 mb-3 mb-md-0">
                         <label for="nombre" class="form-label">Nombre Completo:</label>

@@ -14,6 +14,19 @@ if (isset($_GET['borrar'])) {
     exit();
 }
 
+$SQLConfiracion = "select * from configuracion";
+
+$StmtConfiguracion = $objConexion->prepare($SQLConfiracion);
+
+$StmtConfiguracion->execute();
+
+$resultadoConfiguracion = $StmtConfiguracion->fetch(PDO::FETCH_ASSOC);
+
+
+
+
+
+
 
 include('../Menu.php');
 
@@ -90,7 +103,7 @@ include('../Menu.php');
 
                             <a class="btn" title="Actualizar" href="ActualizarEmpleado.php?id=<?php echo htmlspecialchars($empleado['id_Usuario']); ?>" role="button"><img src="../iconos/actualizar.jpeg"></a>
 
-                            <a class="btn" title="Agregar Nómina" href="../Empleado/nomina.php"><img src="../iconos/nomina.png"></a>
+                            <a class="btn" title="Agregar Nómina" href="../Empleado/nomina.php?id=<?php echo htmlspecialchars($empleado['id_Usuario']); ?>&id_configuracion=<?php echo htmlspecialchars($resultadoConfiguracion['id_configuracion']); ?>"><img src="../iconos/nomina.png"></a>
 
                             <a class="btn" title="Modificar Nómina" href=""><img src="../iconos/EditarNomina.png"></a>
                             <a class="btn" title="Eliminar" href="javascript:borrar(<?php echo htmlspecialchars($empleado['id_Usuario']); ?>);" role="button"><img src="../iconos/delete.png"></a>
