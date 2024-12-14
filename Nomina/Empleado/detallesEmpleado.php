@@ -11,7 +11,7 @@ if ($_GET) {
         // Prevenir inyección SQL
         $id = intval($id);
 
-        $sql = "SELECT * FROM empleado WHERE id_Usuario = $id";
+        $sql = "SELECT * FROM empleado WHERE id_empleado = $id";
         $resultado = $objConexion->consultar($sql);
 
         if (count($resultado) > 0) {

@@ -8,7 +8,7 @@ $resultado = $objConexion->consultar("SELECT * FROM empleado");
 if (isset($_GET['borrar'])) {
     $id = $_GET['borrar'];
     $objConexion = new conexion();
-    $sql = "DELETE FROM empleado WHERE id_Usuario = $id";
+    $sql = "DELETE FROM empleado WHERE id_empleado = $id";
     $objConexion->ejecutar($sql);
     header("location: ListaEmpleados.php");
     exit();
@@ -95,18 +95,18 @@ include('../Menu.php');
                         </td>
                         <td>
 
-                            <a class="btn" title="Visualizar" data-bs-toggle="modal" data-bs-target="#employeeModal<?php echo htmlspecialchars($empleado['id_Usuario']); ?>"><img src="../iconos/visualizar.png"></a>
+                            <a class="btn" title="Visualizar" data-bs-toggle="modal" data-bs-target="#employeeModal<?php echo htmlspecialchars($empleado['id_empleado']); ?>"><img src="../iconos/visualizar.png"></a>
 
 
-                            <input type="hidden" name="id_Usuario" value="<?php echo htmlspecialchars($empleado['id_Usuario']); ?>">
+                            <input type="hidden" name="id_empleado" value="<?php echo htmlspecialchars($empleado['id_empleado']); ?>">
+                            <input type="hidden" name="id_configuracion" value="<?php echo htmlspecialchars($resultadoConfiguracion['id_configuracion']); ?>">
 
+                            <a class="btn" title="Actualizar" href="ActualizarEmpleado.php?id=<?php echo htmlspecialchars($empleado['id_empleado']); ?>" role="button"><img src="../iconos/actualizar.jpeg"></a>
 
-                            <a class="btn" title="Actualizar" href="ActualizarEmpleado.php?id=<?php echo htmlspecialchars($empleado['id_Usuario']); ?>" role="button"><img src="../iconos/actualizar.jpeg"></a>
-
-                            <a class="btn" title="Agregar Nómina" href="../Empleado/nomina.php?id=<?php echo htmlspecialchars($empleado['id_Usuario']); ?>&id_configuracion=<?php echo htmlspecialchars($resultadoConfiguracion['id_configuracion']); ?>"><img src="../iconos/nomina.png"></a>
+                            <a class="btn" title="Agregar Nómina" href="../Empleado/nomina.php?id=<?php echo htmlspecialchars($empleado['id_empleado']); ?>&id_configuracion=<?php echo $resultadoConfiguracion['id_configuracion']; ?>"><img src="../iconos/nomina.png"></a>
 
                             <a class="btn" title="Modificar Nómina" href=""><img src="../iconos/EditarNomina.png"></a>
-                            <a class="btn" title="Eliminar" href="javascript:borrar(<?php echo htmlspecialchars($empleado['id_Usuario']); ?>);" role="button"><img src="../iconos/delete.png"></a>
+                            <a class="btn" title="Eliminar" href="javascript:borrar(<?php echo htmlspecialchars($empleado['id_empleado']); ?>);" role="button"><img src="../iconos/delete.png"></a>
                         </td>
                     </tr>
                 <?php } ?>
@@ -116,11 +116,11 @@ include('../Menu.php');
 
 
     <?php foreach ($resultado as $empleado) { ?>
-        <div class="modal fade" id="employeeModal<?php echo $empleado['id_Usuario']; ?>" tabindex="-1" aria-labelledby="employeeModalLabel<?php echo $empleado['id_Usuario']; ?>" aria-hidden="true">
+        <div class="modal fade" id="employeeModal<?php echo $empleado['id_empleado']; ?>" tabindex="-1" aria-labelledby="employeeModalLabel<?php echo $empleado['id_empleado']; ?>" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="employeeModalLabel<?php echo $empleado['id_Usuario']; ?>">Detalles del Empleado</h5>
+                        <h5 class="modal-title" id="employeeModalLabel<?php echo $empleado['id_empleado']; ?>">Detalles del Empleado</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -193,7 +193,7 @@ include('../Menu.php');
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/solid.js" integrity="sha384-/BxOvRagtVDn9dJ+JGCtcofNXgQO/CCCVKdMfL115s3gOgQxWaX/tSq5V8dRgsbc" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/fontawesome.js" integrity="sha384-dPBGbj4Uoy1OOpM4+aRGfAOc0W37JkROT+3uynUgTHZCHZNMHfGXsmmvYTffZjYO" crossorigin="anonymous"></script>
     <script>
-        function borrar(id_Usuario) {
+        function borrar(id_empleado) {
     Swal.fire({
         title: "¿Desea borrar el registro?",
         icon: 'warning',
@@ -208,7 +208,7 @@ include('../Menu.php');
                 text: "El registro ha sido borrado.",
                 icon: "success"
             }).then(() => {
-                window.location = "ListaEmpleados.php?borrar=" + id_Usuario;
+                window.location = "ListaEmpleados.php?borrar=" + id_empleado;
             });
         }
     });
@@ -229,8 +229,8 @@ include('../Menu.php');
         });
     </script>
     <script>
-        function verEmpleado(id_Usuario) {
-            window.location.href = "../Empleado/detallesEmpleado.php?mostrar=" + id_Usuario;
+        function verEmpleado(id_empleado) {
+            window.location.href = "../Empleado/detallesEmpleado.php?mostrar=" + id_empleado;
         }
     </script>
 </body>

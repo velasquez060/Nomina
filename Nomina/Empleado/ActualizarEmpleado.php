@@ -2,7 +2,7 @@
 require('../conexion/conexion.php');
 include('../Menu.php');
 
-$IdUsuario = $_POST['id_Usuario'] ?? $_GET['id'] ?? null;
+$IdUsuario = $_POST['id_empleado'] ?? $_GET['id'] ?? null;
 
 if ($IdUsuario === null) {
     die("Error: No se proporcionó un ID de usuario válido.");
@@ -12,11 +12,11 @@ if ($IdUsuario === null) {
 $conexion = new conexion();
 
 try {
-    $sql = "SELECT e.Id_Usuario, e.nombre, e.apellido, e.cedula, e.fechaNacimiento, e.celular, e.direccion, e.correo, e.estadoCivil,
+    $sql = "SELECT e.id_empleado, e.nombre, e.apellido, e.cedula, e.fechaNacimiento, e.celular, e.direccion, e.correo, e.estadoCivil,
        e.eps, e.arl, e.fondopensiones, e.fondocesantias, e.entidadBancaria, e.numeroCuenta, e.fechaIngreso,
        e.fechaTerminacion, e.ContactoEmergencia, e.numeroContactoEmergencia, e.archivo, e.fotoempleado
     FROM empleado e
-    WHERE e.Id_Usuario = :idUsuario";
+    WHERE e.id_empleado = :idUsuario";
 
     $stmt = $conexion->prepare($sql);
     $stmt->bindParam(':idUsuario', $IdUsuario, PDO::PARAM_INT);
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             entidadBancaria = :entidadBancaria, numeroCuenta = :numeroCuenta, fechaIngreso = :fechaIngreso, 
             fechaTerminacion = :fechaTerminacion, ContactoEmergencia = :contactoEmergencia, numeroContactoEmergencia = :numeroContactoEmergencia,
             archivo = :archivo, fotoempleado = :fotoempleado
-            WHERE Id_Usuario = :idUsuario";
+            WHERE id_empleado = :idUsuario";
 
         $stmt2 = $conexion->prepare($sqlUpdate);
 
@@ -151,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label class="form-label">Nombre: <span style="color: red;">*</span></label>
         <input type="texto" name="textNombre" class="form-control" id="inputNombre" value="<?php echo $empleado['nombre']; ?>" 
         required>
-        <input type="hidden" name="id_Usuario" value="<?php echo htmlspecialchars($empleado['Id_Usuario']); ?>">
+        <input type="hidden" name="id_empleado" value="<?php echo htmlspecialchars($empleado['id_empleado']); ?>">
         <div class="invalid-feedback">Por favor ingrese Nombre.</div>
       </div>
       <div class="col-md-6">
