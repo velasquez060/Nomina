@@ -49,7 +49,7 @@ include "../Empleado/controlador.php";
                     <div class="col-md-12 mb-3 mb-md-0">
                         <label for="password" class="form-label">Contraseña:</label>
                         <div class="input-group">
-                            <input type="password" name="password" class="form-control form-control-xs" id="password"><i class="fa fa-eye" id="show" style="cursor: pointer"></i>
+                            <input type="password"  name="password" class="form-control form-control-xs" id="password"><i class="fa fa-eye" id="show" style="cursor: pointer" ></i>
                         </div>
                         </span>
                     </div>

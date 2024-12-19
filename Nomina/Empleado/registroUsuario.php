@@ -31,10 +31,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 $nombres = trim(ucwords($_POST["nombres"]));
                 $apellidos = trim(ucwords($_POST["apellidos"]));
-                $usuario = trim(ucwords($_POST["usuario"]));
+                $usuario = trim($_POST["usuario"]);
                 $correo = trim($_POST["email"]);
-                $clave = trim($_POST["clave"]); //md5 sirve para encriptar la contraseña
-
+                $clave_sin_encriptar = trim($_POST["clave"]);
+            
+                // Primero verificar la longitud de la contraseña
+                if (strlen($clave_sin_encriptar) < 6) {
+                    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+                    echo "<script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'La contraseña debe tener al menos 6 caracteres',
+                                icon: 'warning',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = 'registroUsuario.php';
+                                }
+                            });
+                        });
+                    </script>";
+                    exit();
+                }
+            
+                // Solo encriptar la contraseña después de validar su longitud
+                $clave = password_hash($clave_sin_encriptar, PASSWORD_DEFAULT);
+            
                 $sql = "INSERT INTO registrar (nombres, apellidos, usuario, clave, email) 
                         VALUES (:nombres, :apellidos, :usuario, :clave, :email)";
 
@@ -109,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
         crossorigin="anonymous" />
-        <link rel="stylesheet" href="../Css/registro.css?v=1.1"> <!-- ?v=1.1 limpia el cache -->
+    <link rel="stylesheet" href="../Css/registro.css?v=1.1"> <!-- ?v=1.1 limpia el cache -->
 
 </head>
 
@@ -155,50 +178,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col-md-12 mb-3 mb-md-0">
                         <label for="password" class="form-label">Contraseña:</label>
                         <div class="input-group">
-                            <input type="password" name="clave" class="form-control form-control-xs" id="password"><i class="fa fa-eye" id="show" style="cursor: pointer"></i>
+                            <input type="password" name="clave" class="form-control form-control-xs" id="password" placeholder="Contraseña de minimo 6 caracteres"><i class="fa fa-eye" id="show" style="cursor: pointer" ></i>
                         </div>
                     </div>
                 </div>
-                <div class="row  justify-content-center align-items-center  ">
-                <div class="col-md-12 d-flex justify-content-center ">
-                    <button type="button" class="btn btn-primary me-2" name="registro">Registrar</button>
-                    <a href="../Empleado/login.php" class="btn btn-danger">Cancelar</a>
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-md-12 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary me-2" name="registro">Registrar</button>
+                        <a href="../Empleado/login.php" class="btn btn-danger">Cancelar</a>
+                    </div>
                 </div>
             </div>
-            
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-            <style>
-                #show {
-                    cursor: pointer;
+        </form>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <style>
+            #show {
+                cursor: pointer;
+            }
+        </style>
+
+        <script>
+            document.getElementById('show').addEventListener('click', function() {
+                const passwordInput = document.getElementById('password');
+                const icon = this.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
                 }
-            </style>
+            });
+        </script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
 
-            <script>
-                document.getElementById('show').addEventListener('click', function() {
-                    const passwordInput = document.getElementById('password');
-                    const icon = this.querySelector('i');
-
-                    if (passwordInput.type === 'password') {
-                        passwordInput.type = 'text';
-                        icon.classList.remove('fa-eye');
-                        icon.classList.add('fa-eye-slash');
-                    } else {
-                        passwordInput.type = 'password';
-                        icon.classList.remove('fa-eye-slash');
-                        icon.classList.add('fa-eye');
-                    }
-                });
-            </script>
-            <script
-                src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-                crossorigin="anonymous"></script>
-
-            <script
-                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-                integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-                crossorigin="anonymous"></script>
-            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
 
 </html>

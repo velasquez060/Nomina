@@ -1,10 +1,10 @@
 <?php
-
 include('../Menu.php');
-session_start();
-if (empty($_SESSION["id"])) {
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
     header("location: login.php");
 }
+
 
 ?>
 
