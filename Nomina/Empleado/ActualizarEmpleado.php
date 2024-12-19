@@ -1,6 +1,10 @@
 <?php
 require('../conexion/conexion.php');
 include('../Menu.php');
+session_start();
+if (empty($_SESSION["id"])) {
+    header("location: login.php");
+}
 
 $IdUsuario = $_POST['id_empleado'] ?? $_GET['id'] ?? null;
 

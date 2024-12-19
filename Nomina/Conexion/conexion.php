@@ -3,7 +3,7 @@ class conexion {
     private $host = 'localhost';
     private $dbname = 'nomina';
     private $username = 'root';
-    private $password = '12345';
+    private $password = '12345678';
     private $pdo;
 
     public function __construct() {

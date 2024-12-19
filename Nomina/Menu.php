@@ -1,5 +1,6 @@
 <?php
 
+
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,7 @@
             <li><a href="AgregarEmpleado.php">Agregar Empleado</a></li>
             <li><a href="ListaEmpleados.php">Lista Empleados</a></li>
             <li><a href="AjustesNomina.php">Ajustes Nomina</a></li>
-            <li><a href="#">Cerrar Sesión</a></li>
+            <li><a href="cerra.php">Cerrar Sesión</a></li>
         </ul>
     </nav>
 </div>

@@ -1,5 +1,9 @@
 <?php
 require('../conexion/conexion.php');
+session_start();
+if (empty($_SESSION["id"])) {
+    header("location: login.php");
+}
 
 $objConexion = new conexion();
 $resultado = $objConexion->consultar("SELECT * FROM empleado");

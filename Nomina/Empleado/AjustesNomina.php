@@ -1,6 +1,10 @@
 <?php
 include("../Menu.php");
 require('../conexion/conexion.php');
+session_start();
+if (empty($_SESSION["id"])) {
+    header("location: login.php");
+}
 $objconexion = new conexion();
 
 
