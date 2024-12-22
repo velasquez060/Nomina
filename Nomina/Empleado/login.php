@@ -1,7 +1,93 @@
 <?php
-include "../Conexion/cone.php";
-include "../Empleado/controlador.php";
+// include "../Conexion/cone.php";
+session_start();
+require('../conexion/conexion.php'); // Asegúrate de incluir la conexión a la base de datos
+$objconexion = new conexion();
+
+
+
+if (!empty($_POST["ingresar"])) {
+    if (!empty($_POST["nombre"]) && !empty($_POST["password"])) {
+
+        echo $usuario = trim($_POST["nombre"]);
+        echo $contraseña = trim($_POST["password"]);
+
+        // Consulta preparada para evitar inyección SQL
+        $prueba = "SELECT id, nombres, clave FROM registrar WHERE usuario = :usuario AND clave = :clave";
+        $sql = $objconexion->prepare($prueba);
+        $sql->bindParam(':usuario', $usuario);
+        $sql->bindParam(':clave', $contraseña);
+        $sql->execute();
+        $stmprueba = $sql->fetch(PDO::FETCH_ASSOC);
+        
+        // $resultado = $sql->get_result();
+
+        //var_dump($stmprueba);
+        //var_dump($stmprueba['nombres']);
+        if($stmprueba){
+            echo "si entro tengo el usuario";
+        if ($usuario === $stmprueba['nombres'] && $contraseña === $stmprueba['clave']) {
+            // Verificar la contraseña usando password_verify()
+            if (password_verify($contraseña, $prueba2['clave'])) {
+                // Credenciales válidas, iniciar sesión
+                $_SESSION["id"] = $prueba2['id'];
+                $_SESSION["nombre"] = $prueba2['nombres'];
+                $_SESSION["apellido"] = $prueba2['apellidos'];
+                header("location: inicial.php");
+            } else {
+                // Contraseña incorrecta
+                echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+                echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Contraseña incorrecta',
+                            icon: 'error',
+                            confirmButtonText: 'Intentar de nuevo'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'login.php';
+                            }
+                        });
+                    });
+                </script>";
+            }
+        }} else {
+            // Usuario no encontrado
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Usuario no encontrado',
+                        icon: 'error',
+                        confirmButtonText: 'Intentar de nuevo'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'login.php';
+                        }
+                    });
+                });
+            </script>";
+        }
+    } else {
+        // Campos vacíos
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Por favor, completa todos los campos',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                });
+            });
+        </script>";
+    }
+}
 ?>
+
+
 
 
 <!doctype html>
@@ -34,7 +120,7 @@ include "../Empleado/controlador.php";
                 <div class="row mb-1">
                     <div class="col text-center">
                         <h1 class="text-center">Iniciar Sesión</h1>
-                        <img class="image" src="../imagenes/logoo.png" alt="" srcset="">
+                        <img class="image" src="../iconos/logoo.png" alt="" srcset="">
                     </div>
                 </div>
 
@@ -49,7 +135,7 @@ include "../Empleado/controlador.php";
                     <div class="col-md-12 mb-3 mb-md-0">
                         <label for="password" class="form-label">Contraseña:</label>
                         <div class="input-group">
-                            <input type="password"  name="password" class="form-control form-control-xs" id="password"><i class="fa fa-eye" id="show" style="cursor: pointer" ></i>
+                            <input type="password" name="password" class="form-control form-control-xs" id="password"><i class="fa fa-eye" id="show" style="cursor: pointer"></i>
                         </div>
                         </span>
                     </div>

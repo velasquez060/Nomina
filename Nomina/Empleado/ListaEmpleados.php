@@ -1,6 +1,7 @@
 <?php
 require('../conexion/conexion.php');
-session_start();
+include('../Menu.php');
+
 if (empty($_SESSION["id"])) {
     header("location: login.php");
 }
@@ -25,15 +26,6 @@ $StmtConfiguracion = $objConexion->prepare($SQLConfiracion);
 $StmtConfiguracion->execute();
 
 $resultadoConfiguracion = $StmtConfiguracion->fetch(PDO::FETCH_ASSOC);
-
-
-
-
-
-
-
-include('../Menu.php');
-
 
 ?>
 

@@ -1,17 +1,19 @@
 <?php
 include("../Menu.php");
 require('../conexion/conexion.php');
-$objconexion = new conexion();
 
+if (empty($_SESSION["id"])) {
+    header("location: login.php");
+}
+$objconexion = new conexion();
 
 
 $ID_Empleado = $_GET["id"];
 $TernarioEmpleado = $ID_Empleado != "" ?  "el ID del Empeado es " . $ID_Empleado : "Hubo un error al capturar el ID del Empleado";
-echo $TernarioEmpleado;
-echo "<br>";
+
 $ID_Configuracion = $_GET["id_configuracion"];
 $TernarioConfiguracion = $ID_Configuracion != "" ?  "el ID de la Configuracion es " . $ID_Configuracion : "Hubo un error al capturar el ID de la Configuracion";
-echo $TernarioConfiguracion;
+
 
 $SQLEmpleado = "select id_empleado,nombre,apellido,cedula from empleado where id_empleado='$ID_Empleado'";
 
@@ -69,19 +71,19 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                 <div class="row mb-1">
                     <div class="col-md-2 mb-3 mb-md-0">
                         <label for="nombre" class="form-label">Nombre Completo:</label>
-                        <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoEmpleado['nombre'] . ' ' . $ResultadoEmpleado['apellido'];?> ">
+                        <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoEmpleado['nombre'] . ' ' . $ResultadoEmpleado['apellido']; ?> " disabled>
                     </div>
                     <div class="col-md-2 mb-3 mb-md-0">
                         <label for="nombre" class="form-label">Cedúla:</label>
-                        <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoEmpleado['cedula'];?>" disabled>
+                        <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoEmpleado['cedula']; ?>" disabled>
                     </div>
                     <div class="col-md-2 mb-3 mb-md-0">
                         <label for="nombre" class="form-label">Empresa:</label>
-                        <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['nombre_empresa'] ?>">
+                        <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['nombre_empresa'] ?>" disabled>
                     </div>
                     <div class="col-md-2 mb-3 mb-md-0">
                         <label for="nombre" class="form-label">Salario:</label>
-                        <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['salario_basico'] ?>">
+                        <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['salario_basico'], 0, '', '.'); ?>" disabled>
                     </div>
                     <div class="col-md-2 mb-3 mb-md-0">
                         <label for="nombre" class="form-label">Fecha Inicial:</label>
@@ -115,10 +117,10 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Valor Dia:</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['valor_hora'] ?>">
+                    <input type="text" name="nombre" class="form-control form-control-xs">
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs">
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_hora'], 0, '', '.'); ?>" disabled>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
                     <input type="text" name="nombre" class="form-control form-control-xs">
@@ -129,10 +131,10 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Incapacidad:</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['valor_hora'] ?>">
+                    <input type="text" name="nombre" class="form-control form-control-xs">
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs">
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_hora'], 0, '', '.'); ?>" disabled>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
                     <input type="text" name="nombre" class="form-control form-control-xs">
@@ -143,10 +145,10 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Horas Extras Diurnas:</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['valor_hora_extra_diurna'] ?>">
+                    <input type="text" name="nombre" class="form-control form-control-xs">
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs">
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_hora_extra_diurna'], 0, '', '.'); ?>" disabled>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
                     <input type="text" name="nombre" class="form-control form-control-xs">
@@ -157,10 +159,10 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Horas Extras Nocturnas:</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['valor_hora_extra_nocturna'] ?>">
+                    <input type="text" name="nombre" class="form-control form-control-xs">
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs">
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_hora_extra_nocturna'], 0, '', '.'); ?>" disabled>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
                     <input type="text" name="nombre" class="form-control form-control-xs">
@@ -171,10 +173,10 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Horas Extras Dominicales Diurnas:</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['valor_hora_extra_dominical'] ?>">
+                    <input type="text" name="nombre" class="form-control form-control-xs">
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs">
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_hora_extra_dominical'], 0, '', '.'); ?>" disabled>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
                     <input type="text" name="nombre" class="form-control form-control-xs">
@@ -185,10 +187,10 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Horas Extras Dominicales Nocturnas:</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['valor_hora_extra_dominical_nocturna'] ?>">
+                    <input type="text" name="nombre" class="form-control form-control-xs">
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs">
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_hora_extra_dominical_nocturna'], 0, '', '.'); ?>" disabled>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
                     <input type="text" name="nombre" class="form-control form-control-xs">
@@ -199,10 +201,10 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Domingos y Festivos (Horas):</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['valor_hora_domingos_festivos'] ?>">
+                    <input type="text" name="nombre" class="form-control form-control-xs">
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs">
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_hora_domingos_festivos'], 0, '', '.'); ?>" disabled>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
                     <input type="text" name="nombre" class="form-control form-control-xs">
@@ -213,10 +215,10 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Recargo Nocturno:</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['valor_recargo_nocturno'] ?>">
+                    <input type="text" name="nombre" class="form-control form-control-xs">
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs">
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_recargo_nocturno'], 0, '', '.'); ?>" disabled>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
                     <input type="text" name="nombre" class="form-control form-control-xs">
@@ -244,10 +246,10 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Auxilio de transporte (Días laborados):</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['valor_auxilio_transporte'] ?>">
+                    <input type="text" name="nombre" class="form-control form-control-xs">
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs">
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_auxilio_transporte'], 0, '', '.'); ?>" disabled>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
                     <input type="text" name="nombre" class="form-control form-control-xs">
@@ -258,7 +260,7 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Prestamos:</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" >
+                    <input type="text" name="nombre" class="form-control form-control-xs">
                 </div>
             </div>
             <hr>
@@ -280,7 +282,7 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Aporte a Salud:</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['valor_salud'] ?>">
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_salud'], 0, '', '.'); ?>" disabled>
                 </div>
             </div>
             <div class="row mb-1">
@@ -288,7 +290,7 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <label for="nombre" class="form-label">Aporte a Pensión:</label>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo $ResultadoConfiguracion['valor_pension'] ?>"> 
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_pension'], 0, '', '.'); ?>" disabled>
                 </div>
             </div>
             <div class="row mb-1">
@@ -307,7 +309,7 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     <input type="text" name="nombre" class="form-control form-control-xs">
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
-                    <input type="text" name="nombre" class="form-control form-control-xs">
+                    <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['valor_hora'], 0, '', '.'); ?>" disabled>
                 </div>
                 <div class="col-md-3 mb-3 mb-md-0">
                     <input type="text" name="nombre" class="form-control form-control-xs">

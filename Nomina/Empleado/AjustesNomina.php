@@ -1,10 +1,9 @@
 <?php
 include("../Menu.php");
 require('../conexion/conexion.php');
-session_start();
-if (empty($_SESSION["id"])) {
-    header("location: login.php");
-}
+// if (empty($_SESSION["id"])) {
+//     header("location: login.php");
+// }
 $objconexion = new conexion();
 
 
@@ -133,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
   $id_configuracion = $_POST['id_configuracion'];
   $ajustePorcentual = $_POST['ajustePorcentual'];
   $ajustePorcentual = isset($_POST['ajustePorcentual']) ? $_POST['ajustePorcentual'] : '';
-  if (empty($ajustePorcentual) || !is_numeric($ajustePorcentual)) {
+  if (!empty($ajustePorcentual) || !is_numeric($ajustePorcentual)) {
     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
       echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -300,43 +299,43 @@ if (isset($_GET['borrar'])) {
         </div>
         <div class="col-md-6">
           <label for="valorHora" class="form-label">Valor Hora:</label>
-          <input type="text" name="valorHora" class="form-control" value="<?php echo htmlspecialchars($valor_horaformateado = isset($row_verificar['valor_hora']) ? $valor_horaformateado : ""); ?>" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')">
+          <input type="text" name="valorHora" class="form-control" value="<?php echo htmlspecialchars($valor_horaformateado = isset($row_verificar['valor_hora']) ? $valor_horaformateado : ""); ?>" id="numeroEntero_2" oninput="validarNumeroEntero('numeroEntero_2')"disabled>
           <p id="mensajeError_2"></p>
         </div>
       </div>
       <div class="row mb-1">
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="valorHoraExtraDiurna" class="form-label">Valor Hora Extra Diurna:</label>
-          <input type="text" name="valorHoraExtraDiurna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_diurnaformateado = isset($row_verificar['valor_hora_extra_diurna']) ? $valor_hora_extra_diurnaformateado : ""); ?>" id="numeroEntero_3" oninput="validarNumeroEntero('numeroEntero_3')">
+          <input type="text" name="valorHoraExtraDiurna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_diurnaformateado = isset($row_verificar['valor_hora_extra_diurna']) ? $valor_hora_extra_diurnaformateado : ""); ?>" id="numeroEntero_3" oninput="validarNumeroEntero('numeroEntero_3')" disabled>
           <p id="mensajeError_3"></p>
         </div>
         <div class="col-md-6">
           <label for="valorHoraExtraNocturna" class="form-label">Valor Hora Extra Nocturna:</label>
-          <input type="text" name="valorHoraExtraNocturna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_nocturnaformateado = isset($row_verificar['valor_hora_extra_nocturna']) ? $valor_hora_extra_nocturnaformateado : ""); ?>" id="numeroEntero_4" oninput="validarNumeroEntero('numeroEntero_4')">
+          <input type="text" name="valorHoraExtraNocturna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_nocturnaformateado = isset($row_verificar['valor_hora_extra_nocturna']) ? $valor_hora_extra_nocturnaformateado : ""); ?>" id="numeroEntero_4" oninput="validarNumeroEntero('numeroEntero_4')" disabled>
           <p id="mensajeError_4"></p>
         </div>
       </div>
       <div class="row mb-1">
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="valorHoraExtraDominical" class="form-label">Valor Hora Extra Dominical:</label>
-          <input type="text" name="valorHoraExtraDominical" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_dominicalformateado = isset($row_verificar['valor_hora_extra_dominical']) ? $valor_hora_extra_dominicalformateado : ""); ?>" id="numeroEntero_5" oninput="validarNumeroEntero('numeroEntero_5')">
+          <input type="text" name="valorHoraExtraDominical" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_dominicalformateado = isset($row_verificar['valor_hora_extra_dominical']) ? $valor_hora_extra_dominicalformateado : ""); ?>" id="numeroEntero_5" oninput="validarNumeroEntero('numeroEntero_5')" disabled>
           <p id="mensajeError_5"></p>
         </div>
         <div class="col-md-6">
           <label for="valorHoraExtraDominicalNocturna" class="form-label">Valor Hora Extra Dominical Nocturna:</label>
-          <input type="text" name="valorHoraExtraDominicalNocturna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_dominical_nocturnaformateado = isset($row_verificar['valor_hora_extra_dominical_nocturna']) ? $valor_hora_extra_dominical_nocturnaformateado : ""); ?>" id="numeroEntero_6" oninput="validarNumeroEntero('numeroEntero_6')">
+          <input type="text" name="valorHoraExtraDominicalNocturna" class="form-control" value="<?php echo htmlspecialchars($valor_hora_extra_dominical_nocturnaformateado = isset($row_verificar['valor_hora_extra_dominical_nocturna']) ? $valor_hora_extra_dominical_nocturnaformateado : ""); ?>" id="numeroEntero_6" oninput="validarNumeroEntero('numeroEntero_6')" disabled>
           <p id="mensajeError_6"></p>
         </div>
       </div>
       <div class="row mb-1">
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="valorHoraDomingosFestivos" class="form-label">Valor Hora Domingos y Festivos:</label>
-          <input type="text" name="valorHoraDomingosFestivos" class="form-control" value="<?php echo htmlspecialchars($valor_hora_domingos_festivosformateado = isset($row_verificar['valor_hora_domingos_festivos']) ? $valor_hora_domingos_festivosformateado : ""); ?>" id="numeroEntero_7" oninput="validarNumeroEntero('numeroEntero_7')">
+          <input type="text" name="valorHoraDomingosFestivos" class="form-control" value="<?php echo htmlspecialchars($valor_hora_domingos_festivosformateado = isset($row_verificar['valor_hora_domingos_festivos']) ? $valor_hora_domingos_festivosformateado : ""); ?>" id="numeroEntero_7" oninput="validarNumeroEntero('numeroEntero_7')" disabled>
           <p id="mensajeError_7"></p>
         </div>
         <div class="col-md-6">
           <label for="valorRecargoNocturno" class="form-label">Valor Recargo Nocturno:</label>
-          <input type="text" name="valorRecargoNocturno" class="form-control" value="<?php echo htmlspecialchars($valor_recargo_nocturnoformateado = isset($row_verificar['valor_recargo_nocturno']) ? $valor_recargo_nocturnoformateado : ""); ?>" id="numeroEntero_8" oninput="validarNumeroEntero('numeroEntero_8')">
+          <input type="text" name="valorRecargoNocturno" class="form-control" value="<?php echo htmlspecialchars($valor_recargo_nocturnoformateado = isset($row_verificar['valor_recargo_nocturno']) ? $valor_recargo_nocturnoformateado : ""); ?>" id="numeroEntero_8" oninput="validarNumeroEntero('numeroEntero_8')" disabled>
           <p id="mensajeError_8"></p>
         </div>
       </div>
@@ -348,19 +347,19 @@ if (isset($_GET['borrar'])) {
         </div>
         <div class="col-md-6">
           <label for="valorSalud" class="form-label">Valor Salud:</label>
-          <input type="text" name="valorSalud" class="form-control" value="<?php echo htmlspecialchars($valor_saludformateado = isset($row_verificar['valor_salud']) ? $valor_saludformateado : ""); ?>" id="numeroEntero_10" oninput="validarNumeroEntero('numeroEntero_10')">
+          <input type="text" name="valorSalud" class="form-control" value="<?php echo htmlspecialchars($valor_saludformateado = isset($row_verificar['valor_salud']) ? $valor_saludformateado : ""); ?>" id="numeroEntero_10" oninput="validarNumeroEntero('numeroEntero_10')" disabled>
           <p id="mensajeError_10"></p>
         </div>
       </div>
       <div class="row mb-1">
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="valorPension" class="form-label">Valor Pensión:</label>
-          <input type="text" name="valorPension" class="form-control" value="<?php echo htmlspecialchars($valor_pensionformateado = isset($row_verificar['valor_pension']) ? $valor_pensionformateado : ""); ?>" id="numeroEntero_11" oninput="validarNumeroEntero('numeroEntero_11')">
+          <input type="text" name="valorPension" class="form-control" value="<?php echo htmlspecialchars($valor_pensionformateado = isset($row_verificar['valor_pension']) ? $valor_pensionformateado : ""); ?>" id="numeroEntero_11" oninput="validarNumeroEntero('numeroEntero_11')" disabled>
           <p id="mensajeError_11"></p>
         </div>
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="salarioBasico" class="form-label">Ajuste porcentual:</label>
-          <input type="text" name="ajustePorcentual" class="form-control" value="<?php echo htmlspecialchars($ajuste_porcentual = isset($row_verificar['ajuste_porcentual']) ? $row_verificar['ajuste_porcentual'] : ""); ?>">
+          <input type="text" name="ajustePorcentual" class="form-control" value="<?php echo htmlspecialchars($ajuste_porcentual = isset($row_verificar['ajuste_porcentual']) ? $row_verificar['ajuste_porcentual'] : ""); ?>" required>
         </div>
       </div>
       <div class="row mb-1">
