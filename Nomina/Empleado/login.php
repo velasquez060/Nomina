@@ -14,16 +14,19 @@ if (!empty($_POST["ingresar"])) {
         $contraseña = trim($_POST["password"]);
 
         // Consulta preparada para evitar inyección SQL
-        $prueba = "SELECT * FROM registrar WHERE nombres = '$usuario'";
+        $prueba = "SELECT * FROM registrar WHERE usuario = '$usuario'";
         $stmt_verificar = $objconexion->prepare($prueba);
         
          $stmt_verificar->execute();
-        //echo $Consultatabla = $stmt_verificar->rowCount();
+        
         $row_verificar = $stmt_verificar->fetch(PDO::FETCH_ASSOC);
         if($row_verificar){
         $passEncriptada = $row_verificar['clave'];
 
-        if(password_verify($contraseña, $passEncriptada)) {
+        //echo $ternario = $usuario == $row_verificar['nombres'] ? "si es igual" : "no es igual" ;       
+
+        
+        if(password_verify($contraseña, $passEncriptada) && $usuario == $row_verificar['usuario']) {
             $_SESSION["id"] = $row_verificar['id'];
             $_SESSION["nombre"] = $row_verificar['nombres'];
             $_SESSION["apellido"] = $row_verificar['apellidos'];
@@ -48,15 +51,16 @@ if (!empty($_POST["ingresar"])) {
         }
 
 
-
-    }else {
-        // Usuario no encontrado
+    }
+    }
+    else {
+        // Campos Vacios
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
         echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
                 Swal.fire({
                     title: 'Error',
-                    text: 'Usuario no encontrado',
+                    text: 'Los Campos no pueder ir vacios',
                     icon: 'error',
                     confirmButtonText: 'Intentar de nuevo'
                 }).then((result) => {
@@ -69,7 +73,7 @@ if (!empty($_POST["ingresar"])) {
     }
 }
 
-}
+
 
 
 
