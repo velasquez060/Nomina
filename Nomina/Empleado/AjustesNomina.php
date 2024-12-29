@@ -359,7 +359,7 @@ if (isset($_GET['borrar'])) {
         </div>
         <div class="col-md-6 mb-3 mb-md-0">
           <label for="salarioBasico" class="form-label">Ajuste porcentual:</label>
-          <input type="text" name="ajustePorcentual" class="form-control" value="<?php echo htmlspecialchars($ajuste_porcentual = isset($row_verificar['ajuste_porcentual']) ? $row_verificar['ajuste_porcentual'] : ""); ?>" required>
+          <input type="text" name="ajustePorcentual" class="form-control" value="<?php echo htmlspecialchars($ajuste_porcentual = isset($row_verificar['ajuste_porcentual']) ? $row_verificar['ajuste_porcentual'] : ""); ?>">
         </div>
       </div>
       <div class="row mb-1">
