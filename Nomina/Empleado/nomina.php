@@ -5,6 +5,8 @@ require('../conexion/conexion.php');
 if (empty($_SESSION["id"])) {
     header("location: login.php");
 }
+
+
 $objconexion = new conexion();
 
 
@@ -83,7 +85,7 @@ $ResultadoConfiguracion = $SMTconfiguracion->fetch(PDO::FETCH_ASSOC);
                     </div>
                     <div class="col-md-2 mb-3 mb-md-0">
                         <label for="nombre" class="form-label">Salario:</label>
-                        <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format($ResultadoConfiguracion['salario_basico'], 0, '', '.'); ?>" disabled>
+                        <input type="text" name="nombre" class="form-control form-control-xs" value="<?php echo number_format(($ResultadoConfiguracion['salario_basico'] + $ResultadoConfiguracion['valor_auxilio_transporte']), 0, '', '.'); ?>" disabled>
                     </div>
                     <div class="col-md-2 mb-3 mb-md-0">
                         <label for="nombre" class="form-label">Fecha Inicial:</label>

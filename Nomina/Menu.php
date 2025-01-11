@@ -28,6 +28,7 @@ if(isset($_GET['cerrar_sesion'])) {
             <li><a href="inicial.php">Inicio</a></li>
             <li><a href="AgregarEmpleado.php">Agregar Empleado</a></li>
             <li><a href="ListaEmpleados.php">Lista Empleados</a></li>
+            <li><a href="nominaDiaria.php">Nomina Diaria</a></li>
             <li><a href="AjustesNomina.php">Ajustes Nomina</a></li>
             <li><a href="?cerrar_sesion=1">Cerrar Sesión</a></li>
         </ul>

@@ -14,10 +14,10 @@ if (!empty($_POST["ingresar"])) {
         $contraseña = trim($_POST["password"]);
 
         // Consulta preparada para evitar inyección SQL
-        $prueba = "SELECT * FROM registrar WHERE usuario = '$usuario'";
+        $prueba = "SELECT * FROM registrar WHERE usuario = ?";
         $stmt_verificar = $objconexion->prepare($prueba);
         
-         $stmt_verificar->execute();
+         $stmt_verificar->execute([$usuario]);
         
         $row_verificar = $stmt_verificar->fetch(PDO::FETCH_ASSOC);
         if($row_verificar){
@@ -48,9 +48,27 @@ if (!empty($_POST["ingresar"])) {
                 });
             });
         </script>";
-        }
+        } 
+        
 
 
+    }else{
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+            echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Usuario o Contraseña incorrecta',
+                    icon: 'error',
+                    confirmButtonText: 'Intentar de nuevo'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'login.php';
+                    }
+                });
+            });
+        </script>";
+        
     }
     }
     else {

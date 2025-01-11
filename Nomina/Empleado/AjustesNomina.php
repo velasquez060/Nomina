@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['actualizar'])) {
     
   }
 
-  if(!isset($ajustePorcentual)){
+  if(isset($ajustePorcentual)){
 
   
   $reajusteSalarioBasico = $salariobasico = $_POST['salarioBasico'] = $salariobasico + ($salariobasico *  $ajustePorcentual);
